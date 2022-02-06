@@ -1,4 +1,6 @@
-import { RouteParamsWithQueryOverload, Router } from 'ziggy-js';
+import { RouteConfigContext } from '@/lib/route-config';
+import { useContext } from 'react';
+import route, { RouteParamsWithQueryOverload, Router } from 'ziggy-js';
 
 export default function useRoute() {
   function routeWrapper(
@@ -16,7 +18,11 @@ export default function useRoute() {
     params?: RouteParamsWithQueryOverload,
     absolute?: boolean,
   ): any {
-    return (window as any).route(name, params, absolute);
+    const routeConfig = useContext(RouteConfigContext);
+
+    return typeof window !== 'undefined'
+      ? (window as any).route(name, params, absolute)
+      : route(name, params, absolute, routeConfig);
   }
 
   return routeWrapper;
