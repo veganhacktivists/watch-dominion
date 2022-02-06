@@ -46,6 +46,16 @@
     "tabWidth": 2,
     "trailingComma": "all",
     "printWidth": 80,
-    "arrowParens": "avoid"
+    "arrowParens": "avoid",
+    "overrides": [
+      {
+        "files": [
+          "*.php"
+        ],
+        "options": {
+          "tabWidth": 4
+        }
+      }
+    ]
   }
 }
