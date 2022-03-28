@@ -1,308 +1,388 @@
-import { InertiaLink } from '@inertiajs/inertia-react';
-import React from 'react';
-import useRoute from '@/Hooks/useRoute';
-import useTypedPage from '@/Hooks/useTypedPage';
-// @ts-ignore
-import { Head } from '@inertiajs/inertia-react';
+import ArrowRight from '@/Components/ArrowRight';
+import Button from '@/Components/Button';
+import { Dialog } from '@/Components/Dialog';
+import Stat from '@/Components/Stat';
+import React, { useCallback, useRef, useState } from 'react';
 
-interface Props {
-  canLogin: boolean;
-  canRegister: boolean;
-  laravelVersion: string;
-  phpVersion: string;
-}
+// Constants
+const siteUrl = 'https://watchdominion.org';
+const twitterIntent =
+  'https://twitter.com/intent/tweet?url=https%3A%2F%2Fwatchdominion.org&text=Watch%20the%20award-winning%20and%20life%20changing%20documentary%2C%20Dominion%21&hashtags=watchdominion';
+const youtubeUrl = 'https://www.youtube.com/watch?v=LQRAfJyEsko';
 
-export default function Welcome({
-  canLogin,
-  canRegister,
-  laravelVersion,
-  phpVersion,
-}: Props) {
-  const route = useRoute();
-  const page = useTypedPage();
+// FIXME Dynamically load visitor count.
+// FIXME Optimize images how they are loaded.
+export default function Welcome() {
+  // State
+  const visitors = 10854;
+  const embedRef = useRef<HTMLAnchorElement>(null);
+  const [dialogOpen, setDialogOpen] = useState(false);
+
+  // Event listeners
+  const handleEmbedClick = useCallback(
+    event => {
+      event.preventDefault();
+      setDialogOpen(!dialogOpen);
+    },
+    [dialogOpen],
+  );
+
+  const handleShare = useCallback(async event => {
+    if (navigator.share) {
+      event.preventDefault();
+
+      const res = await fetch('/img/watchdominion.jpg');
+      const blob = await res.blob();
+      const file = new File([blob], 'watchdominion.jpg', {
+        type: 'image/jpeg',
+      });
+
+      await navigator.share({
+        text: 'Watch the award-winning and life changing documentary, Dominion!',
+        url: 'https://watchdominion.org',
+        files: [file],
+      });
+    }
+  }, []);
 
   return (
-    <div className="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center sm:pt-0">
-      <Head title="Welcome" />
-
-      {canLogin ? (
-        <div className="hidden fixed top-0 right-0 px-6 py-4 sm:block">
-          {page.props.user ? (
-            <InertiaLink
-              href={route('dashboard')}
-              className="text-sm text-gray-700 underline"
-            >
-              Dashboard
-            </InertiaLink>
-          ) : (
-            <>
-              <InertiaLink
-                href={route('login')}
-                className="text-sm text-gray-700 underline"
-              >
-                Log in
-              </InertiaLink>
-
-              {canRegister ? (
-                <InertiaLink
-                  href={route('register')}
-                  className="ml-4 text-sm text-gray-700 underline"
-                >
-                  Register
-                </InertiaLink>
-              ) : null}
-            </>
-          )}
+    <>
+      <div className="relative flex flex-col">
+        <div className="mx-auto grid w-full max-w-5xl grid-cols-1 items-center py-12 lg:grid-cols-2">
+          <div className="flex flex-col space-y-4 p-16">
+            <h1 className="flex flex-col text-center text-7xl font-black uppercase text-beige lg:text-8xl">
+              <span className="text-accent">Watch</span>
+              <span>this</span>
+              <span>movie</span>
+            </h1>
+            <h2 className="whitespace-nowrap text-center font-rock text-xl uppercase text-accent lg:text-3xl">
+              It's life changing !
+            </h2>
+          </div>
+          <div className="hidden lg:block">
+            <img
+              src="/img/pig-desktop.jpg"
+              alt=""
+              width="512"
+              height="447"
+              loading="lazy"
+            />
+          </div>
         </div>
-      ) : null}
 
-      <div className="max-w-6xl mx-auto sm:px-6 lg:px-8">
-        <div className="flex justify-center pt-8 sm:justify-start sm:pt-0">
-          <svg
-            viewBox="0 0 651 192"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-16 w-auto text-gray-700 sm:h-20"
+        <div className="mx-auto w-full max-w-5xl px-3">
+          <video
+            className="w-full aspect-video"
+            poster="/posters/default.png"
+            preload="none"
+            controls
           >
-            <g clipPath="url(#clip0)" fill="#EF3B2D">
-              <path d="M248.032 44.676h-16.466v100.23h47.394v-14.748h-30.928V44.676zM337.091 87.202c-2.101-3.341-5.083-5.965-8.949-7.875-3.865-1.909-7.756-2.864-11.669-2.864-5.062 0-9.69.931-13.89 2.792-4.201 1.861-7.804 4.417-10.811 7.661-3.007 3.246-5.347 6.993-7.016 11.239-1.672 4.249-2.506 8.713-2.506 13.389 0 4.774.834 9.26 2.506 13.459 1.669 4.202 4.009 7.925 7.016 11.169 3.007 3.246 6.609 5.799 10.811 7.66 4.199 1.861 8.828 2.792 13.89 2.792 3.913 0 7.804-.955 11.669-2.863 3.866-1.908 6.849-4.533 8.949-7.875v9.021h15.607V78.182h-15.607v9.02zm-1.431 32.503c-.955 2.578-2.291 4.821-4.009 6.73-1.719 1.91-3.795 3.437-6.229 4.582-2.435 1.146-5.133 1.718-8.091 1.718-2.96 0-5.633-.572-8.019-1.718-2.387-1.146-4.438-2.672-6.156-4.582-1.719-1.909-3.032-4.152-3.938-6.73-.909-2.577-1.36-5.298-1.36-8.161 0-2.864.451-5.585 1.36-8.162.905-2.577 2.219-4.819 3.938-6.729 1.718-1.908 3.77-3.437 6.156-4.582 2.386-1.146 5.059-1.718 8.019-1.718 2.958 0 5.656.572 8.091 1.718 2.434 1.146 4.51 2.674 6.229 4.582 1.718 1.91 3.054 4.152 4.009 6.729.953 2.577 1.432 5.298 1.432 8.162-.001 2.863-.479 5.584-1.432 8.161zM463.954 87.202c-2.101-3.341-5.083-5.965-8.949-7.875-3.865-1.909-7.756-2.864-11.669-2.864-5.062 0-9.69.931-13.89 2.792-4.201 1.861-7.804 4.417-10.811 7.661-3.007 3.246-5.347 6.993-7.016 11.239-1.672 4.249-2.506 8.713-2.506 13.389 0 4.774.834 9.26 2.506 13.459 1.669 4.202 4.009 7.925 7.016 11.169 3.007 3.246 6.609 5.799 10.811 7.66 4.199 1.861 8.828 2.792 13.89 2.792 3.913 0 7.804-.955 11.669-2.863 3.866-1.908 6.849-4.533 8.949-7.875v9.021h15.607V78.182h-15.607v9.02zm-1.432 32.503c-.955 2.578-2.291 4.821-4.009 6.73-1.719 1.91-3.795 3.437-6.229 4.582-2.435 1.146-5.133 1.718-8.091 1.718-2.96 0-5.633-.572-8.019-1.718-2.387-1.146-4.438-2.672-6.156-4.582-1.719-1.909-3.032-4.152-3.938-6.73-.909-2.577-1.36-5.298-1.36-8.161 0-2.864.451-5.585 1.36-8.162.905-2.577 2.219-4.819 3.938-6.729 1.718-1.908 3.77-3.437 6.156-4.582 2.386-1.146 5.059-1.718 8.019-1.718 2.958 0 5.656.572 8.091 1.718 2.434 1.146 4.51 2.674 6.229 4.582 1.718 1.91 3.054 4.152 4.009 6.729.953 2.577 1.432 5.298 1.432 8.162 0 2.863-.479 5.584-1.432 8.161zM650.772 44.676h-15.606v100.23h15.606V44.676zM365.013 144.906h15.607V93.538h26.776V78.182h-42.383v66.724zM542.133 78.182l-19.616 51.096-19.616-51.096h-15.808l25.617 66.724h19.614l25.617-66.724h-15.808zM591.98 76.466c-19.112 0-34.239 15.706-34.239 35.079 0 21.416 14.641 35.079 36.239 35.079 12.088 0 19.806-4.622 29.234-14.688l-10.544-8.158c-.006.008-7.958 10.449-19.832 10.449-13.802 0-19.612-11.127-19.612-16.884h51.777c2.72-22.043-11.772-40.877-33.023-40.877zm-18.713 29.28c.12-1.284 1.917-16.884 18.589-16.884 16.671 0 18.697 15.598 18.813 16.884h-37.402zM184.068 43.892c-.024-.088-.073-.165-.104-.25-.058-.157-.108-.316-.191-.46-.056-.097-.137-.176-.203-.265-.087-.117-.161-.242-.265-.345-.085-.086-.194-.148-.29-.223-.109-.085-.206-.182-.327-.252l-.002-.001-.002-.002-35.648-20.524a2.971 2.971 0 00-2.964 0l-35.647 20.522-.002.002-.002.001c-.121.07-.219.167-.327.252-.096.075-.205.138-.29.223-.103.103-.178.228-.265.345-.066.089-.147.169-.203.265-.083.144-.133.304-.191.46-.031.085-.08.162-.104.25-.067.249-.103.51-.103.776v38.979l-29.706 17.103V24.493a3 3 0 00-.103-.776c-.024-.088-.073-.165-.104-.25-.058-.157-.108-.316-.191-.46-.056-.097-.137-.176-.203-.265-.087-.117-.161-.242-.265-.345-.085-.086-.194-.148-.29-.223-.109-.085-.206-.182-.327-.252l-.002-.001-.002-.002L40.098 1.396a2.971 2.971 0 00-2.964 0L1.487 21.919l-.002.002-.002.001c-.121.07-.219.167-.327.252-.096.075-.205.138-.29.223-.103.103-.178.228-.265.345-.066.089-.147.169-.203.265-.083.144-.133.304-.191.46-.031.085-.08.162-.104.25-.067.249-.103.51-.103.776v122.09c0 1.063.568 2.044 1.489 2.575l71.293 41.045c.156.089.324.143.49.202.078.028.15.074.23.095a2.98 2.98 0 001.524 0c.069-.018.132-.059.2-.083.176-.061.354-.119.519-.214l71.293-41.045a2.971 2.971 0 001.489-2.575v-38.979l34.158-19.666a2.971 2.971 0 001.489-2.575V44.666a3.075 3.075 0 00-.106-.774zM74.255 143.167l-29.648-16.779 31.136-17.926.001-.001 34.164-19.669 29.674 17.084-21.772 12.428-43.555 24.863zm68.329-76.259v33.841l-12.475-7.182-17.231-9.92V49.806l12.475 7.182 17.231 9.92zm2.97-39.335l29.693 17.095-29.693 17.095-29.693-17.095 29.693-17.095zM54.06 114.089l-12.475 7.182V46.733l17.231-9.92 12.475-7.182v74.537l-17.231 9.921zM38.614 7.398l29.693 17.095-29.693 17.095L8.921 24.493 38.614 7.398zM5.938 29.632l12.475 7.182 17.231 9.92v79.676l.001.005-.001.006c0 .114.032.221.045.333.017.146.021.294.059.434l.002.007c.032.117.094.222.14.334.051.124.088.255.156.371a.036.036 0 00.004.009c.061.105.149.191.222.288.081.105.149.22.244.314l.008.01c.084.083.19.142.284.215.106.083.202.178.32.247l.013.005.011.008 34.139 19.321v34.175L5.939 144.867V29.632h-.001zm136.646 115.235l-65.352 37.625V148.31l48.399-27.628 16.953-9.677v33.862zm35.646-61.22l-29.706 17.102V66.908l17.231-9.92 12.475-7.182v33.841z" />
-            </g>
-          </svg>
+            <source
+              src="https://watchdominion.org/movie.mp4"
+              type="video/mp4"
+            />
+            Your browser does not support the video tag.
+          </video>
+          <div className="flex items-center justify-center bg-accent p-3 text-black">
+            <p>
+              Video not loading? Watch Dominion{' '}
+              <a href={youtubeUrl} className="font-semibold underline">
+                on YouTube
+              </a>
+              !
+            </p>
+          </div>
+          <div className="relative mt-4 flex">
+            <Dialog
+              open={dialogOpen}
+              onOpenChange={setDialogOpen}
+              trigger={
+                <a
+                  href="https://veganhacktivists.org/contact"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="tablet:text-lg ml-auto flex items-center text-base appearance-none"
+                  title="Contact us for your own customized Dominion embed code!"
+                  slot="trigger"
+                  onClick={handleEmbedClick}
+                  ref={embedRef}
+                >
+                  <svg
+                    width="24"
+                    height="24"
+                    viewBox="0 0 33 33"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="mr-2"
+                  >
+                    <circle cx="16.5" cy="16.5" r="16.5" fill="#f4c41a" />
+                    <path
+                      d="M6.40469 15.8359C6.05313 16.2266 6.05313 16.8125 6.40469 17.1641L11.7172 22.4766C12.1078 22.8672 12.6938 22.8672 13.0453 22.4766L13.9438 21.6172C14.2953 21.2266 14.2953 20.6406 13.9438 20.2891L10.1547 16.5L13.9438 12.75C14.2953 12.3984 14.2953 11.7734 13.9438 11.4219L13.0453 10.5234C12.6938 10.1719 12.1078 10.1719 11.7172 10.5234L6.40469 15.8359ZM26.5563 17.1641C26.9078 16.8125 26.9078 16.2266 26.5563 15.8359L21.2438 10.5234C20.8531 10.1719 20.2672 10.1719 19.9156 10.5234L19.0172 11.4219C18.6656 11.8125 18.6656 12.3984 19.0172 12.75L22.8063 16.5391L19.0172 20.2891C18.6656 20.6406 18.6656 21.2266 19.0172 21.6172L19.9156 22.4766C20.2672 22.8672 20.8531 22.8672 21.2438 22.4766L26.5563 17.1641Z"
+                      fill="#171716"
+                    />
+                  </svg>
+                  Embed
+                </a>
+              }
+            />
+          </div>
         </div>
 
-        <div className="mt-8 bg-white dark:bg-gray-800 overflow-hidden shadow sm:rounded-lg">
-          <div className="grid grid-cols-1 md:grid-cols-2">
-            <div className="p-6">
-              <div className="flex items-center">
-                <svg
-                  fill="none"
-                  stroke="currentColor"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  viewBox="0 0 24 24"
-                  className="w-8 h-8 text-gray-500"
-                >
-                  <path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
-                </svg>
-                <div className="ml-4 text-lg leading-7 font-semibold">
-                  <a
-                    href="https://laravel.com/docs"
-                    className="underline text-gray-900 dark:text-white"
-                  >
-                    Documentation
-                  </a>
-                </div>
-              </div>
+        <div className="mx-auto flex flex-col items-center px-8 pt-20 pb-32 text-center lg:max-w-lg">
+          <h2 className="text-3xl font-bold">Finished watching?</h2>
+          <p className="mt-6 text-xl font-light">
+            Take the next step today and make a difference for the animals, the
+            environment and yourself. Try a free 30 day vegan challenge and get
+            help along the way!
+          </p>
 
-              <div className="ml-12">
-                <div className="mt-2 text-gray-600 dark:text-gray-400 text-sm">
-                  Laravel has wonderful, thorough documentation covering every
-                  aspect of the framework. Whether you are new to the framework
-                  or have previous experience with Laravel, we recommend reading
-                  all of the documentation from beginning to end.
-                </div>
+          <Button
+            as="externalLink"
+            className="group mt-12"
+            href="https://vbcamp.org/watchdominion"
+          >
+            <span className="mr-6 font-bold">Go to challenge</span>
+            <ArrowRight />
+          </Button>
+        </div>
+        <div className="lg:hidden">
+          <img src="/img/pig-mobile.jpg" alt="" loading="lazy" />
+        </div>
+
+        <div className="-skew-y-6 transform bg-beige px-8 py-20 text-black lg:pt-40 lg:pb-20">
+          <div className="mx-auto grid w-full max-w-5xl skew-y-6 transform grid-cols-1 gap-16 lg:grid-cols-2">
+            <div className="flex flex-col lg:order-2">
+              <div className="mx-auto flex flex-col rounded-xl bg-dark px-8 py-4 text-center font-rubik text-white lg:mt-8">
+                <span className="text-2xl font-black uppercase">
+                  You are visitor
+                </span>
+                <Stat className="mt-2" value={visitors} />
               </div>
             </div>
 
-            <div className="p-6 border-t border-gray-200 dark:border-gray-700 md:border-t-0 md:border-l">
-              <div className="flex items-center">
-                <svg
-                  fill="none"
-                  stroke="currentColor"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  viewBox="0 0 24 24"
-                  className="w-8 h-8 text-gray-500"
-                >
-                  <path d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path>
-                  <path d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                </svg>
-                <div className="ml-4 text-lg leading-7 font-semibold">
-                  <a
-                    href="https://laracasts.com"
-                    className="underline text-gray-900 dark:text-white"
-                  >
-                    Laracasts
-                  </a>
-                </div>
-              </div>
-
-              <div className="ml-12">
-                <div className="mt-2 text-gray-600 dark:text-gray-400 text-sm">
-                  Laracasts offers thousands of video tutorials on Laravel, PHP,
-                  and JavaScript development. Check them out, see for yourself,
-                  and massively level up your development skills in the process.
-                </div>
-              </div>
-            </div>
-
-            <div className="p-6 border-t border-gray-200 dark:border-gray-700">
-              <div className="flex items-center">
-                <svg
-                  fill="none"
-                  stroke="currentColor"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  viewBox="0 0 24 24"
-                  className="w-8 h-8 text-gray-500"
-                >
-                  <path d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z"></path>
-                </svg>
-                <div className="ml-4 text-lg leading-7 font-semibold">
-                  <a
-                    href="https://laravel-news.com/"
-                    className="underline text-gray-900 dark:text-white"
-                  >
-                    Laravel News
-                  </a>
-                </div>
-              </div>
-
-              <div className="ml-12">
-                <div className="mt-2 text-gray-600 dark:text-gray-400 text-sm">
-                  Laravel News is a community driven portal and newsletter
-                  aggregating all of the latest and most important news in the
-                  Laravel ecosystem, including new package releases and
-                  tutorials.
-                </div>
-              </div>
-            </div>
-
-            <div className="p-6 border-t border-gray-200 dark:border-gray-700 md:border-l">
-              <div className="flex items-center">
-                <svg
-                  fill="none"
-                  stroke="currentColor"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  viewBox="0 0 24 24"
-                  className="w-8 h-8 text-gray-500"
-                >
-                  <path d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                </svg>
-                <div className="ml-4 text-lg leading-7 font-semibold text-gray-900 dark:text-white">
-                  Vibrant Ecosystem
-                </div>
-              </div>
-
-              <div className="ml-12">
-                <div className="mt-2 text-gray-600 dark:text-gray-400 text-sm">
-                  Laravel's robust library of first-party tools and libraries,
-                  such as{' '}
-                  <a href="https://forge.laravel.com" className="underline">
-                    Forge
-                  </a>
-                  ,{' '}
-                  <a href="https://vapor.laravel.com" className="underline">
-                    Vapor
-                  </a>
-                  ,{' '}
-                  <a href="https://nova.laravel.com" className="underline">
-                    Nova
-                  </a>
-                  , and{' '}
-                  <a href="https://envoyer.io" className="underline">
-                    Envoyer
-                  </a>{' '}
-                  help you take your projects to the next level. Pair them with
-                  powerful open source libraries like{' '}
-                  <a
-                    href="https://laravel.com/docs/billing"
-                    className="underline"
-                  >
-                    Cashier
-                  </a>
-                  ,{' '}
-                  <a href="https://laravel.com/docs/dusk" className="underline">
-                    Dusk
-                  </a>
-                  ,{' '}
-                  <a
-                    href="https://laravel.com/docs/broadcasting"
-                    className="underline"
-                  >
-                    Echo
-                  </a>
-                  ,{' '}
-                  <a
-                    href="https://laravel.com/docs/horizon"
-                    className="underline"
-                  >
-                    Horizon
-                  </a>
-                  ,{' '}
-                  <a
-                    href="https://laravel.com/docs/sanctum"
-                    className="underline"
-                  >
-                    Sanctum
-                  </a>
-                  ,{' '}
-                  <a
-                    href="https://laravel.com/docs/telescope"
-                    className="underline"
-                  >
-                    Telescope
-                  </a>
-                  , and more.
-                </div>
-              </div>
+            <div className="flex flex-col items-center text-center lg:order-1 lg:items-start lg:text-left">
+              <h2 className="font-rubik text-3xl font-bold text-dark">
+                You can help!
+              </h2>
+              <p className="mt-6 text-xl font-light text-dark">
+                We need your help to share this movie as far and as wide as
+                possible!
+                <br className="lg:hidden" /> <br className="lg:hidden" />
+                Use the buttons below to help share on social media, together,
+                we can spread kindness!
+              </p>
+              <Button
+                as="externalLink"
+                className="group mt-12"
+                href={twitterIntent}
+                onClick={handleShare}
+              >
+                <span className="mr-6 font-medium">Tap here to share!</span>
+                <ArrowRight />
+              </Button>
             </div>
           </div>
         </div>
 
-        <div className="flex justify-center mt-4 sm:items-center sm:justify-between">
-          <div className="text-center text-sm text-gray-500 sm:text-left">
-            <div className="flex items-center">
-              <svg
-                fill="none"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                className="-mt-px w-5 h-5 text-gray-400"
-              >
-                <path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
-              </svg>
+        <div className="-skew-y-6 transform px-8 pt-20 text-white">
+          <div className="mx-auto grid w-full max-w-5xl skew-y-6 transform grid-cols-1 lg:grid-cols-2">
+            <div className="flex flex-col items-center justify-center px-8 py-20 text-center">
+              <h2 className="flex flex-col p-8 text-4xl font-bold uppercase text-white">
+                <span className="font-rubik">Other</span>
+                <span className="font-rock text-accent">movies</span>
+              </h2>
 
-              <a
-                href="https://laravel.bigcartel.com"
-                className="ml-1 underline"
+              <Button
+                as="externalLink"
+                variant="secondary"
+                className="group mt-6"
+                href="https://www.netflix.com/title/81014008"
               >
-                Shop
-              </a>
+                <span className="mr-6">Seaspiracy</span>
+                <ArrowRight />
+              </Button>
 
-              <svg
-                fill="none"
-                stroke="currentColor"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                viewBox="0 0 24 24"
-                className="ml-4 -mt-px w-5 h-5 text-gray-400"
+              <Button
+                as="externalLink"
+                variant="secondary"
+                className="group mt-6"
+                href="https://www.netflix.com/id-en/title/81157840"
               >
-                <path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
-              </svg>
+                <span className="mr-6">Game Changers</span>
+                <ArrowRight />
+              </Button>
 
-              <a
-                href="https://github.com/sponsors/taylorotwell"
-                className="ml-1 underline"
+              <Button
+                as="externalLink"
+                variant="secondary"
+                className="group mt-6"
+                href="https://www.netflix.com/id-en/title/80174177"
               >
-                Sponsor
-              </a>
+                <span className="mr-6">What The Health</span>
+                <ArrowRight />
+              </Button>
             </div>
-          </div>
 
-          <div className="ml-4 text-center text-sm text-gray-500 sm:text-right sm:ml-0">
-            Laravel v{laravelVersion} (PHP v{phpVersion})
+            <img src="/img/cow-mobile.jpg" alt="" width="512" height="747" />
+          </div>
+        </div>
+
+        <div className="mx-auto grid w-full max-w-5xl grid-cols-1 lg:grid-cols-2">
+          <div className="flex flex-col items-center justify-center px-8 py-20 text-center lg:order-2">
+            <h2 className="flex flex-col p-8 text-4xl font-bold uppercase text-white">
+              <span className="font-rubik">Other</span>
+              <span className="font-rock text-accent">resources</span>
+            </h2>
+
+            <Button
+              as="externalLink"
+              variant="secondary"
+              className="group mt-6"
+              href="https://nutritionfacts.org"
+            >
+              <span className="mr-6">Nutrition Facts</span>
+              <ArrowRight />
+            </Button>
+
+            <Button
+              as="externalLink"
+              variant="secondary"
+              className="group mt-6"
+              href="https://happycow.net"
+            >
+              <span className="mr-6">HappyCow</span>
+              <ArrowRight />
+            </Button>
+
+            <Button
+              as="externalLink"
+              variant="secondary"
+              className="group mt-6"
+              href="https://plantbasednews.org"
+            >
+              <span className="mr-6">Plant Based News</span>
+              <ArrowRight />
+            </Button>
+
+            <Button
+              as="externalLink"
+              variant="secondary"
+              className="group mt-6"
+              href="https://nutritionfacts.org/book/how-not-to-die/"
+            >
+              <span className="mr-6">How Not To Die</span>
+              <ArrowRight />
+            </Button>
+          </div>
+          <img
+            className="lg:order-1"
+            src="/img/chicks-mobile.jpg"
+            width="512"
+            height="648"
+            alt=""
+          />
+        </div>
+
+        <div className="bg-accent">
+          <div className="mx-auto flex w-full max-w-5xl flex-col items-center px-8 py-10 text-center lg:flex-row lg:space-x-7 lg:text-left">
+            <svg
+              className="w-20"
+              version="1.1"
+              viewBox="0 0 569 546"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <g>
+                <circle
+                  cx="362.589996"
+                  cy="204.589996"
+                  data-fill="1"
+                  r="204.589996"
+                />
+                <rect
+                  data-fill="1"
+                  height="545.799988"
+                  width="100"
+                  x="0"
+                  y="0"
+                />
+              </g>
+            </svg>
+            <div className="flex-1 lg:flex lg:flex-col">
+              <h2 className="mt-6 font-rubik text-2xl font-bold text-dark lg:hidden">
+                Support us on Patreon!
+              </h2>
+              <h2 className="mt-6 hidden font-rubik text-2xl font-bold text-dark lg:mt-0 lg:block">
+                Please consider supporting us on Patreon!
+              </h2>
+              <p className="mt-4 text-lg text-dark lg:mt-0">
+                This free-to-use service wouldn't be possible without your
+                support. Thank you!
+              </p>
+            </div>
+
+            <a
+              className="text-bold mt-6 rounded-md bg-black px-4 py-2 text-white lg:hidden"
+              href="https://patreon.com/veganhacktivists"
+            >
+              Donate
+            </a>
+            <a
+              className="text-bold hidden rounded-md bg-black px-4 py-2 text-white lg:block"
+              href="https://patreon.com/veganhacktivists"
+            >
+              Support us
+            </a>
+          </div>
+        </div>
+
+        <div className="mx-auto flex w-full max-w-5xl flex-col items-center p-8 text-center lg:flex-row lg:text-left">
+          <span className="flex-1">
+            A project by the{' '}
+            <a className="font-bold" href="https://veganhacktivists.org">
+              Vegan Hacktivists
+            </a>
+          </span>
+          <div className="mt-6 flex space-x-6 lg:mt-0">
+            <a
+              href="https://www.instagram.com/veganhacktivists"
+              className="text-white"
+            >
+              <span className="sr-only">Instagram</span>
+              <svg
+                className="h-6 w-6"
+                fill="currentColor"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.45 2.525c.636-.247 1.363-.416 2.427-.465C8.901 2.013 9.256 2 11.685 2h.63zm-.081 1.802h-.468c-2.456 0-2.784.011-3.807.058-.975.045-1.504.207-1.857.344-.467.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.047 1.023-.058 1.351-.058 3.807v.468c0 2.456.011 2.784.058 3.807.045.975.207 1.504.344 1.857.182.466.399.8.748 1.15.35.35.683.566 1.15.748.353.137.882.3 1.857.344 1.054.048 1.37.058 4.041.058h.08c2.597 0 2.917-.01 3.96-.058.976-.045 1.505-.207 1.858-.344.466-.182.8-.398 1.15-.748.35-.35.566-.683.748-1.15.137-.353.3-.882.344-1.857.048-1.055.058-1.37.058-4.041v-.08c0-2.597-.01-2.917-.058-3.96-.045-.976-.207-1.505-.344-1.858a3.097 3.097 0 00-.748-1.15 3.098 3.098 0 00-1.15-.748c-.353-.137-.882-.3-1.857-.344-1.023-.047-1.351-.058-3.807-.058zM12 6.865a5.135 5.135 0 110 10.27 5.135 5.135 0 010-10.27zm0 1.802a3.333 3.333 0 100 6.666 3.333 3.333 0 000-6.666zm5.338-3.205a1.2 1.2 0 110 2.4 1.2 1.2 0 010-2.4z"
+                  clipRule="evenodd"
+                />
+              </svg>
+            </a>
+
+            <a
+              href="https://github.com/veganhacktivists"
+              className="text-white"
+            >
+              <span className="sr-only">GitHub</span>
+              <svg
+                className="h-6 w-6"
+                fill="currentColor"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
+                  clipRule="evenodd"
+                />
+              </svg>
+            </a>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
