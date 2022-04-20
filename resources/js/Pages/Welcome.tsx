@@ -2,7 +2,7 @@ import ArrowRight from '@/Components/ArrowRight';
 import Button from '@/Components/Button';
 import { Dialog } from '@/Components/Dialog';
 import Stat from '@/Components/Stat';
-import React, { useCallback, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 
 // Constants
 const siteUrl = 'https://watchdominion.org';
@@ -14,7 +14,7 @@ const youtubeUrl = 'https://www.youtube.com/watch?v=LQRAfJyEsko';
 // FIXME Optimize images how they are loaded.
 export default function Welcome() {
   // State
-  const visitors = 10854;
+  const [visitors, setVisitors] = useState(10854);
   const embedRef = useRef<HTMLAnchorElement>(null);
   const [dialogOpen, setDialogOpen] = useState(false);
 
@@ -43,6 +43,20 @@ export default function Welcome() {
         files: [file],
       });
     }
+  }, []);
+
+  async function loadStats() {
+    const res = await fetch('https://watch-dominion-stats.vercel.app/visitor');
+
+    if (res.ok) {
+      const data = await res.json();
+      setVisitors(visitors + data.visitors);
+    }
+  }
+
+  // Lifecycle
+  useEffect(() => {
+    loadStats();
   }, []);
 
   return (
