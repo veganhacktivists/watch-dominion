@@ -10,11 +10,10 @@ const twitterIntent =
   'https://twitter.com/intent/tweet?url=https%3A%2F%2Fwatchdominion.org&text=Watch%20the%20award-winning%20and%20life%20changing%20documentary%2C%20Dominion%21&hashtags=watchdominion';
 const youtubeUrl = 'https://www.youtube.com/watch?v=LQRAfJyEsko';
 
-// FIXME Dynamically load visitor count.
 // FIXME Optimize images how they are loaded.
 export default function Welcome() {
   // State
-  const [visitors, setVisitors] = useState(0);
+  const [visitors, setVisitors] = useState(10854);
   const embedRef = useRef<HTMLAnchorElement>(null);
   const [dialogOpen, setDialogOpen] = useState(false);
 
@@ -170,7 +169,7 @@ export default function Welcome() {
                 <span className="text-2xl font-black uppercase">
                   You are visitor
                 </span>
-                <Stat className="mt-2" value={visitors} initialValue={10854} />
+                <Stat className="mt-2" value={visitors} />
               </div>
             </div>
 
