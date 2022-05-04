@@ -1,29 +1,21 @@
 import { animate } from 'motion';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useReducer, useRef } from 'react';
 
 type Props = {
   className?: String;
+  initialValue: number;
   value: number;
 };
 
-export default function Stat({ className, value }: Props) {
+export default function Stat({ className, initialValue, value }: Props) {
   const ref = useRef<HTMLSpanElement>(null);
+  const [seen, setSeen] = useReducer(() => true, false);
 
   useEffect(() => {
-    const formatter = new Intl.NumberFormat('en-EN');
     const intersectionObserver = new IntersectionObserver(entries => {
       entries.forEach(entry => {
-        if ('seen' in ref.current!.dataset === false && entry.isIntersecting) {
-          ref.current!.dataset.seen = '';
-
-          animate(
-            progress => {
-              ref.current!.innerHTML = formatter.format(
-                Math.floor(progress * value),
-              );
-            },
-            { duration: 3 },
-          );
+        if (entry.isIntersecting) {
+          setSeen();
         }
       });
     });
@@ -34,6 +26,18 @@ export default function Stat({ className, value }: Props) {
       intersectionObserver.disconnect();
     };
   }, []);
+
+  useEffect(() => {
+    const formatter = new Intl.NumberFormat('en-EN');
+    animate(
+      progress => {
+        ref.current!.innerHTML = formatter.format(
+          Math.floor(initialValue + progress * value),
+        );
+      },
+      { duration: 3 },
+    );
+  }, [seen, initialValue, value]);
 
   return (
     <span
