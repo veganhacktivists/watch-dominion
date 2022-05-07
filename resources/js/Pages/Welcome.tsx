@@ -96,7 +96,7 @@ export default function Welcome() {
             />
             Your browser does not support the video tag.
           </video>
-          <div className="flex items-center justify-center bg-accent p-3 text-black">
+          <div className="flex items-center justify-center text-center bg-accent p-3 text-black">
             <p>
               Video not loading? Watch Dominion{' '}
               <a href={youtubeUrl} className="font-semibold underline">
