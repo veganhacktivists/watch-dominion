@@ -115,9 +115,9 @@ export default function Welcome() {
               label="Language"
               onValueChange={handleLangChange}
             >
-              <Option value="de">German</Option>
               <Option value="en">English</Option>
               <Option value="fr">French</Option>
+              <Option value="de">German</Option>
               <Option value="it">Italian</Option>
             </Select>
 
