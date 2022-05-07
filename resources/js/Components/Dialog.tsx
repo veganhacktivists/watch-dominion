@@ -2,8 +2,9 @@ import * as RadixDialog from '@radix-ui/react-dialog';
 import React, { useCallback, useRef, useState } from 'react';
 import Button from './Button';
 
+// FIXME Update embed video URL based on selected language
 const embed = `<video width="100%" poster="https://watchdominion.org/posters/default.png" controls>
-  <source src="https://watchdominion.org/movie.mp4" type="video/mp4">
+  <source src="https://watchdominion.org/watch-dominion/en" type="video/mp4">
   Your browser does not support the video tag.
 </video>`;
 

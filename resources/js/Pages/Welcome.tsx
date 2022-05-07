@@ -1,23 +1,26 @@
 import ArrowRight from '@/Components/ArrowRight';
 import Button from '@/Components/Button';
 import { Dialog } from '@/Components/Dialog';
+import { Option, Select } from '@/Components/Select';
 import Stat from '@/Components/Stat';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 
 // Constants
-const siteUrl = 'https://watchdominion.org';
 const twitterIntent =
   'https://twitter.com/intent/tweet?url=https%3A%2F%2Fwatchdominion.org&text=Watch%20the%20award-winning%20and%20life%20changing%20documentary%2C%20Dominion%21&hashtags=watchdominion';
 const youtubeUrl = 'https://www.youtube.com/watch?v=LQRAfJyEsko';
 
+type Lang = 'de' | 'en' | 'fr' | 'it';
+
 // FIXME Optimize images how they are loaded.
 export default function Welcome() {
-  // State
-  const [visitors, setVisitors] = useState(10854);
   const embedRef = useRef<HTMLAnchorElement>(null);
+  const [visitors, setVisitors] = useState(10854);
   const [dialogOpen, setDialogOpen] = useState(false);
+  const [lang, setLang] = useState<Lang>('en');
 
-  // Event listeners
+  const handleLangChange = (value: string) => setLang(value as Lang);
+
   const handleEmbedClick = useCallback(
     event => {
       event.preventDefault();
@@ -53,7 +56,7 @@ export default function Welcome() {
     }
   }
 
-  // Lifecycle
+  // Fetch stats on page load.
   useEffect(() => {
     loadStats();
   }, []);
@@ -89,9 +92,10 @@ export default function Welcome() {
             poster="/posters/default.png"
             preload="none"
             controls
+            key={lang}
           >
             <source
-              src="https://watchdominion.org/movie.mp4"
+              src={`https://watchdominion.org/watch-dominion/${lang}`}
               type="video/mp4"
             />
             Your browser does not support the video tag.
@@ -106,6 +110,17 @@ export default function Welcome() {
             </p>
           </div>
           <div className="relative mt-4 flex">
+            <Select
+              defaultValue="en"
+              label="Language"
+              onValueChange={handleLangChange}
+            >
+              <Option value="en">English</Option>
+              <Option value="fr">French</Option>
+              <Option value="de">German</Option>
+              <Option value="it">Italian</Option>
+            </Select>
+
             <Dialog
               open={dialogOpen}
               onOpenChange={setDialogOpen}
@@ -114,9 +129,8 @@ export default function Welcome() {
                   href="https://veganhacktivists.org/contact"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="tablet:text-lg ml-auto flex items-center text-base appearance-none"
+                  className="tablet:text-lg ml-auto flex items-center text-base appearance-none space-x-2"
                   title="Contact us for your own customized Dominion embed code!"
-                  slot="trigger"
                   onClick={handleEmbedClick}
                   ref={embedRef}
                 >
@@ -126,7 +140,6 @@ export default function Welcome() {
                     viewBox="0 0 33 33"
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg"
-                    className="mr-2"
                   >
                     <circle cx="16.5" cy="16.5" r="16.5" fill="#f4c41a" />
                     <path
@@ -134,7 +147,7 @@ export default function Welcome() {
                       fill="#171716"
                     />
                   </svg>
-                  Embed
+                  <span>Embed</span>
                 </a>
               }
             />
