@@ -17,8 +17,16 @@ export default function Welcome() {
   const [visitors, setVisitors] = useState(10854);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [lang, setLang] = useState<Lang>('en');
+  const [loading, setLoading] = useState(false);
 
-  const handleLangChange = (value: string) => setLang(value as Lang);
+  const handleLangChange = (value: string) => {
+    setLoading(true);
+    setLang(value as Lang);
+
+    window.setTimeout(() => {
+      setLoading(false);
+    }, 1000);
+  };
 
   const handleEmbedClick = useCallback(
     event => {
@@ -86,19 +94,26 @@ export default function Welcome() {
         </div>
 
         <div className="mx-auto w-full max-w-5xl px-3">
-          <video
-            className="w-full aspect-video"
-            poster="/posters/default.png"
-            preload="none"
-            controls
-            key={lang}
-          >
-            <source
-              src={`https://watchdominion.org/watch-dominion/${lang}`}
-              type="video/mp4"
-            />
-            Your browser does not support the video tag.
-          </video>
+          <div className="relative">
+            <video
+              className="w-full aspect-video"
+              poster="/posters/default.png"
+              preload="none"
+              controls
+              key={lang}
+            >
+              <source
+                src={`https://watchdominion.org/watch-dominion/${lang}`}
+                type="video/mp4"
+              />
+              Your browser does not support the video tag.
+            </video>
+            {loading && (
+              <p className="absolute inset-0 w-full h-full bg-black text-white flex items-center justify-center">
+                Loading...
+              </p>
+            )}
+          </div>
           <div className="flex items-center justify-center text-center bg-accent p-3 text-black">
             <p>
               Video not loading? Watch Dominion{' '}
