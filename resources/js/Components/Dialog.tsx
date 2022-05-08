@@ -1,18 +1,19 @@
+import { Lang } from '@/types/lang';
 import * as RadixDialog from '@radix-ui/react-dialog';
 import React, { useCallback, useRef, useState } from 'react';
 import Button from './Button';
 
-// FIXME Update embed video URL based on selected language
-const embed = `<video width="100%" poster="https://watchdominion.org/posters/default.png" controls>
-  <source src="https://watchdominion.org/watch-dominion/en" type="video/mp4">
-  Your browser does not support the video tag.
-</video>`;
-
 type Props = RadixDialog.DialogProps & {
+  lang: Lang;
   trigger?: React.ReactNode;
 };
 
-export function Dialog({ trigger, ...props }: Props) {
+export function Dialog({ lang, trigger, ...props }: Props) {
+  const embed = `<video width="100%" poster="https://watchdominion.org/posters/default.png" controls>
+  <source src="https://watchdominion.org/watch-dominion/${lang}" type="video/mp4">
+  Your browser does not support the video tag.
+</video>`;
+
   // State
   const embedRef = useRef<HTMLTextAreaElement>(null);
   const [copied, setCopied] = useState(false);

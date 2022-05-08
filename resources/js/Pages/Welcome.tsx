@@ -3,14 +3,13 @@ import Button from '@/Components/Button';
 import { Dialog } from '@/Components/Dialog';
 import { Option, Select } from '@/Components/Select';
 import Stat from '@/Components/Stat';
+import type { Lang } from '@/types/lang';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 
 // Constants
 const twitterIntent =
   'https://twitter.com/intent/tweet?url=https%3A%2F%2Fwatchdominion.org&text=Watch%20the%20award-winning%20and%20life%20changing%20documentary%2C%20Dominion%21&hashtags=watchdominion';
 const youtubeUrl = 'https://www.youtube.com/watch?v=LQRAfJyEsko';
-
-type Lang = 'de' | 'en' | 'fr' | 'it';
 
 // FIXME Optimize images how they are loaded.
 export default function Welcome() {
@@ -122,6 +121,7 @@ export default function Welcome() {
             </Select>
 
             <Dialog
+              lang={lang}
               open={dialogOpen}
               onOpenChange={setDialogOpen}
               trigger={
