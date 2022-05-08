@@ -63,16 +63,16 @@ export default function TwoFactorAuthenticationForm() {
       }
     >
       {twoFactorEnabled ? (
-        <h3 className="text-lg font-medium text-gray-900">
+        <h3 className="text-gray-900 text-lg font-medium">
           You have enabled two factor authentication.
         </h3>
       ) : (
-        <h3 className="text-lg font-medium text-gray-900">
+        <h3 className="text-gray-900 text-lg font-medium">
           You have not enabled two factor authentication.
         </h3>
       )}
 
-      <div className="mt-3 max-w-xl text-sm text-gray-600">
+      <div className="text-gray-600 mt-3 max-w-xl text-sm">
         <p>
           When two factor authentication is enabled, you will be prompted for a
           secure, random token during authentication. You may retrieve this
@@ -84,7 +84,7 @@ export default function TwoFactorAuthenticationForm() {
         <div>
           {qrCode ? (
             <div>
-              <div className="mt-4 max-w-xl text-sm text-gray-600">
+              <div className="text-gray-600 mt-4 max-w-xl text-sm">
                 <p className="font-semibold">
                   Two factor authentication is now enabled. Scan the following
                   QR code using your phone's authenticator application.
@@ -100,7 +100,7 @@ export default function TwoFactorAuthenticationForm() {
 
           {recoveryCodes.length > 0 ? (
             <div>
-              <div className="mt-4 max-w-xl text-sm text-gray-600">
+              <div className="text-gray-600 mt-4 max-w-xl text-sm">
                 <p className="font-semibold">
                   Store these recovery codes in a secure password manager. They
                   can be used to recover access to your account if your two
@@ -108,7 +108,7 @@ export default function TwoFactorAuthenticationForm() {
                 </p>
               </div>
 
-              <div className="grid gap-1 max-w-xl mt-4 px-4 py-4 font-mono text-sm bg-gray-100 rounded-lg">
+              <div className="font-mono bg-gray-100 mt-4 grid max-w-xl gap-1 rounded-lg px-4 py-4 text-sm">
                 {recoveryCodes.map(code => (
                   <div key={code}>{code}</div>
                 ))}

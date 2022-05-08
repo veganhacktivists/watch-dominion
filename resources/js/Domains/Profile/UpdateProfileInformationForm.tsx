@@ -112,7 +112,7 @@ export default function UpdateProfileInformationForm({ user }: Props) {
             // <!-- New Profile Photo Preview -->
             <div className="mt-2">
               <span
-                className="block rounded-full w-20 h-20"
+                className="block h-20 w-20 rounded-full"
                 style={{
                   backgroundSize: 'cover',
                   backgroundRepeat: 'no-repeat',
@@ -127,7 +127,7 @@ export default function UpdateProfileInformationForm({ user }: Props) {
               <img
                 src={user.profile_photo_url}
                 alt={user.name}
-                className="rounded-full h-20 w-20 object-cover"
+                className="h-20 w-20 rounded-full object-cover"
               />
             </div>
           )}

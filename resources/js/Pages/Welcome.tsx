@@ -96,7 +96,7 @@ export default function Welcome() {
         <div className="mx-auto w-full max-w-5xl px-3">
           <div className="relative">
             <video
-              className="w-full aspect-video"
+              className="aspect-video w-full"
               poster="/posters/default.png"
               preload="none"
               controls
@@ -109,12 +109,12 @@ export default function Welcome() {
               Your browser does not support the video tag.
             </video>
             {loading && (
-              <p className="absolute inset-0 w-full h-full bg-black text-white flex items-center justify-center">
+              <p className="absolute inset-0 flex h-full w-full items-center justify-center bg-black text-white">
                 Loading...
               </p>
             )}
           </div>
-          <div className="flex items-center justify-center text-center bg-accent p-3 text-black">
+          <div className="flex items-center justify-center bg-accent p-3 text-center text-black">
             <p>
               Video not loading? Watch Dominion{' '}
               <a href={youtubeUrl} className="font-semibold underline">
@@ -144,7 +144,7 @@ export default function Welcome() {
                   href="https://veganhacktivists.org/contact"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="tablet:text-lg ml-auto flex items-center text-base appearance-none space-x-2"
+                  className="tablet:text-lg ml-auto flex appearance-none items-center space-x-2 text-base"
                   title="Contact us for your own customized Dominion embed code!"
                   onClick={handleEmbedClick}
                   ref={embedRef}

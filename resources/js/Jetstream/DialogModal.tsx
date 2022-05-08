@@ -17,7 +17,7 @@ JetDialogModal.Content = function JetDialogModalContent({
 JetDialogModal.Footer = function JetDialogModalFooter({
   children,
 }: PropsWithChildren<Record<string, unknown>>) {
-  return <div className="px-6 py-4 bg-gray-100 text-right">{children}</div>;
+  return <div className="bg-gray-100 px-6 py-4 text-right">{children}</div>;
 };
 
 export default function JetDialogModal({

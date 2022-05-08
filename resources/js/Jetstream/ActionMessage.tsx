@@ -19,7 +19,7 @@ export default function JetActionMessage({
         leave-from-class="opacity-100"
         leaveTo="opacity-0"
       >
-        <div className="text-sm text-gray-600">{children}</div>
+        <div className="text-gray-600 text-sm">{children}</div>
       </Transition>
     </div>
   );

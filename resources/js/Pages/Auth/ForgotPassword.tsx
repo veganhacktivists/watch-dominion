@@ -28,14 +28,14 @@ export default function ForgotPassword({ status }: Props) {
     <JetAuthenticationCard>
       <Head title="Forgot Password" />
 
-      <div className="mb-4 text-sm text-gray-600">
+      <div className="text-gray-600 mb-4 text-sm">
         Forgot your password? No problem. Just let us know your email address
         and we will email you a password reset link that will allow you to
         choose a new one.
       </div>
 
       {status && (
-        <div className="mb-4 font-medium text-sm text-green-600">{status}</div>
+        <div className="text-green-600 mb-4 text-sm font-medium">{status}</div>
       )}
 
       <JetValidationErrors className="mb-4" />
@@ -54,7 +54,7 @@ export default function ForgotPassword({ status }: Props) {
           />
         </div>
 
-        <div className="flex items-center justify-end mt-4">
+        <div className="mt-4 flex items-center justify-end">
           <JetButton
             className={classNames({ 'opacity-25': form.processing })}
             disabled={form.processing}

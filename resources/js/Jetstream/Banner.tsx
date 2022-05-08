@@ -18,11 +18,11 @@ export default function JetBanner() {
             'bg-red-700': style == 'danger',
           })}
         >
-          <div className="max-w-screen-xl mx-auto py-2 px-3 sm:px-6 lg:px-8">
-            <div className="flex items-center justify-between flex-wrap">
-              <div className="w-0 flex-1 flex items-center min-w-0">
+          <div className="mx-auto max-w-screen-xl py-2 px-3 sm:px-6 lg:px-8">
+            <div className="flex flex-wrap items-center justify-between">
+              <div className="flex w-0 min-w-0 flex-1 items-center">
                 <span
-                  className={classNames('flex p-2 rounded-lg', {
+                  className={classNames('flex rounded-lg p-2', {
                     'bg-indigo-600': style == 'success',
                     'bg-red-600': style == 'danger',
                   })}
@@ -69,7 +69,7 @@ export default function JetBanner() {
                   })()}
                 </span>
 
-                <p className="ml-3 font-medium text-sm text-white truncate">
+                <p className="ml-3 truncate text-sm font-medium text-white">
                   {message}
                 </p>
               </div>
@@ -78,7 +78,7 @@ export default function JetBanner() {
                 <button
                   type="button"
                   className={classNames(
-                    '-mr-1 flex p-2 rounded-md focus:outline-none sm:-mr-2 transition',
+                    '-mr-1 flex rounded-md p-2 transition focus:outline-none sm:-mr-2',
                     {
                       'hover:bg-indigo-600 focus:bg-indigo-600':
                         style == 'success',

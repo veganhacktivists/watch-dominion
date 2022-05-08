@@ -28,11 +28,11 @@ export default function JetModal({
       <Dialog
         as="div"
         static
-        className="fixed z-10 inset-0 overflow-y-auto"
+        className="fixed inset-0 z-10 overflow-y-auto"
         open={isOpen}
         onClose={onClose}
       >
-        <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+        <div className="flex min-h-screen items-end justify-center px-4 pt-4 pb-20 text-center sm:block sm:p-0">
           <Transition.Child
             as={React.Fragment}
             enter="ease-out duration-300"
@@ -42,12 +42,12 @@ export default function JetModal({
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <Dialog.Overlay className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
+            <Dialog.Overlay className="bg-gray-500 fixed inset-0 bg-opacity-75 transition-opacity" />
           </Transition.Child>
 
           {/* This element is to trick the browser into centering the modal contents. */}
           <span
-            className="hidden sm:inline-block sm:align-middle sm:h-screen"
+            className="hidden sm:inline-block sm:h-screen sm:align-middle"
             aria-hidden="true"
           >
             &#8203;
@@ -63,7 +63,7 @@ export default function JetModal({
           >
             <div
               className={classNames(
-                'inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:w-full',
+                'inline-block transform overflow-hidden rounded-lg bg-white text-left align-bottom shadow-xl transition-all sm:my-8 sm:w-full sm:align-middle',
                 maxWidthClass,
               )}
             >
@@ -78,7 +78,7 @@ export default function JetModal({
 
   return ReactDOM.createPortal(
     <Transition show={isOpen} leave="duration-200">
-      <div className="fixed inset-0 overflow-y-auto px-4 py-6 sm:px-0 z-50">
+      <div className="fixed inset-0 z-50 overflow-y-auto px-4 py-6 sm:px-0">
         <Transition
           show={isOpen}
           enter="ease-out duration-300"
@@ -92,7 +92,7 @@ export default function JetModal({
             className="fixed inset-0 transform transition-all"
             onClick={onClose}
           >
-            <div className="absolute inset-0 bg-gray-500 opacity-75"></div>
+            <div className="bg-gray-500 absolute inset-0 opacity-75"></div>
           </div>
         </Transition>
 
@@ -107,7 +107,7 @@ export default function JetModal({
         >
           <div
             className={classNames(
-              'mb-6 bg-white rounded-lg overflow-hidden shadow-xl transform transition-all sm:w-full sm:mx-auto',
+              'mb-6 transform overflow-hidden rounded-lg bg-white shadow-xl transition-all sm:mx-auto sm:w-full',
               maxWidthClass,
             )}
           >

@@ -37,7 +37,7 @@ export default function Login({ canResetPassword, status }: Props) {
       <JetValidationErrors className="mb-4" />
 
       {status && (
-        <div className="mb-4 font-medium text-sm text-green-600">{status}</div>
+        <div className="text-green-600 mb-4 text-sm font-medium">{status}</div>
       )}
 
       <form onSubmit={onSubmit}>
@@ -76,16 +76,16 @@ export default function Login({ canResetPassword, status }: Props) {
                 form.setData('remember', e.currentTarget.checked ? 'on' : '')
               }
             />
-            <span className="ml-2 text-sm text-gray-600">Remember me</span>
+            <span className="text-gray-600 ml-2 text-sm">Remember me</span>
           </label>
         </div>
 
-        <div className="flex flex-col space-y-2 md:flex-row md:items-center md:justify-between md:space-y-0 mt-4">
+        <div className="mt-4 flex flex-col space-y-2 md:flex-row md:items-center md:justify-between md:space-y-0">
           {canResetPassword && (
             <div>
               <InertiaLink
                 href={route('password.request')}
-                className="underline text-sm text-gray-600 hover:text-gray-900"
+                className="text-gray-600 hover:text-gray-900 text-sm underline"
               >
                 Forgot your password?
               </InertiaLink>
@@ -95,7 +95,7 @@ export default function Login({ canResetPassword, status }: Props) {
           <div className="flex items-center justify-end">
             <InertiaLink
               href={route('register')}
-              className="underline text-sm text-gray-600 hover:text-gray-900"
+              className="text-gray-600 hover:text-gray-900 text-sm underline"
             >
               Need an account?
             </InertiaLink>

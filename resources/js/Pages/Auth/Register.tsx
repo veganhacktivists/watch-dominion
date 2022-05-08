@@ -106,7 +106,7 @@ export default function Register() {
                   <a
                     target="_blank"
                     href={route('terms.show')}
-                    className="underline text-sm text-gray-600 hover:text-gray-900"
+                    className="text-gray-600 hover:text-gray-900 text-sm underline"
                   >
                     Terms of Service
                   </a>
@@ -114,7 +114,7 @@ export default function Register() {
                   <a
                     target="_blank"
                     href={route('policy.show')}
-                    className="underline text-sm text-gray-600 hover:text-gray-900"
+                    className="text-gray-600 hover:text-gray-900 text-sm underline"
                   >
                     Privacy Policy
                   </a>
@@ -124,10 +124,10 @@ export default function Register() {
           </div>
         )}
 
-        <div className="flex items-center justify-end mt-4">
+        <div className="mt-4 flex items-center justify-end">
           <InertiaLink
             href={route('login')}
-            className="underline text-sm text-gray-600 hover:text-gray-900"
+            className="text-gray-600 hover:text-gray-900 text-sm underline"
           >
             Already registered?
           </InertiaLink>

@@ -12,7 +12,7 @@ export default function JetLabel({
 }: PropsWithChildren<Props>) {
   return (
     <label
-      className="block font-medium text-sm text-gray-700"
+      className="text-gray-700 block text-sm font-medium"
       htmlFor={htmlFor}
     >
       {value || children}

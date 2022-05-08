@@ -15,7 +15,7 @@ export default function JetInputError({
   }
   return (
     <div className={className}>
-      <p className="text-sm text-red-600">{message || children}</p>
+      <p className="text-red-600 text-sm">{message || children}</p>
     </div>
   );
 }

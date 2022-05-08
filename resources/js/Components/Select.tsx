@@ -60,7 +60,7 @@ export const Content = ({
   ...props
 }: RadixSelect.SelectContentProps) => (
   <RadixSelect.Content
-    className={cx('shadow-lg bg-white p-0.5 rounded-md', className)}
+    className={cx('rounded-md bg-white p-0.5 shadow-lg', className)}
     {...props}
   />
 );
@@ -72,7 +72,7 @@ export const Item = React.forwardRef(
   ) => (
     <RadixSelect.Item
       className={cx(
-        'py-1 px-2 text-black rounded-md focus:bg-accent outline-none cursor-default',
+        'cursor-default rounded-md py-1 px-2 text-black outline-none focus:bg-accent',
         className,
       )}
       {...props}

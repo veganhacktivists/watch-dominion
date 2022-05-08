@@ -144,7 +144,7 @@ export default function APITokenManager({
           <div className="col-span-6">
             <JetLabel htmlFor="permissions">Permissions</JetLabel>
 
-            <div className="mt-2 grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="mt-2 grid grid-cols-1 gap-4 md:grid-cols-2">
               {availablePermissions.map(permission => (
                 <div key={permission}>
                   <label className="flex items-center">
@@ -173,7 +173,7 @@ export default function APITokenManager({
                         }
                       }}
                     />
-                    <span className="ml-2 text-sm text-gray-600">
+                    <span className="text-gray-600 ml-2 text-sm">
                       {permission}
                     </span>
                   </label>
@@ -207,14 +207,14 @@ export default function APITokenManager({
 
                     <div className="flex items-center">
                       {token.last_used_ago && (
-                        <div className="text-sm text-gray-400">
+                        <div className="text-gray-400 text-sm">
                           Last used {token.last_used_ago}
                         </div>
                       )}
 
                       {availablePermissions.length > 0 ? (
                         <button
-                          className="cursor-pointer ml-6 text-sm text-gray-400 underline"
+                          className="text-gray-400 ml-6 cursor-pointer text-sm underline"
                           onClick={() => manageApiTokenPermissions(token)}
                         >
                           Permissions
@@ -222,7 +222,7 @@ export default function APITokenManager({
                       ) : null}
 
                       <button
-                        className="cursor-pointer ml-6 text-sm text-red-500"
+                        className="text-red-500 ml-6 cursor-pointer text-sm"
                         onClick={() => confirmApiTokenDeletion(token)}
                       >
                         Delete
@@ -247,7 +247,7 @@ export default function APITokenManager({
             again.
           </div>
 
-          <div className="mt-4 bg-gray-100 px-4 py-2 rounded font-mono text-sm text-gray-500">
+          <div className="bg-gray-100 font-mono text-gray-500 mt-4 rounded px-4 py-2 text-sm">
             {page.props?.jetstream?.flash?.token}
           </div>
         </JetDialogModal.Content>
@@ -264,7 +264,7 @@ export default function APITokenManager({
         onClose={() => setManagingPermissionsFor(null)}
       >
         <JetDialogModal.Content title={'API Token Permissions'}>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
             {availablePermissions.map(permission => (
               <div key={permission}>
                 <label className="flex items-center">
@@ -293,7 +293,7 @@ export default function APITokenManager({
                       }
                     }}
                   />
-                  <span className="ml-2 text-sm text-gray-600">
+                  <span className="text-gray-600 ml-2 text-sm">
                     {permission}
                   </span>
                 </label>

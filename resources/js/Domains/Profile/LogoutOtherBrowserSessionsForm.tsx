@@ -51,7 +51,7 @@ export default function LogoutOtherBrowserSessions({ sessions }: Props) {
         'Manage and log out your active sessions on other browsers and devices.'
       }
     >
-      <div className="max-w-xl text-sm text-gray-600">
+      <div className="text-gray-600 max-w-xl text-sm">
         If necessary, you may log out of all of your other browser sessions
         across all of your devices. Some of your recent sessions are listed
         below; however, this list may not be exhaustive. If you feel your
@@ -72,7 +72,7 @@ export default function LogoutOtherBrowserSessions({ sessions }: Props) {
                     strokeWidth="2"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
-                    className="w-8 h-8 text-gray-500"
+                    className="text-gray-500 h-8 w-8"
                   >
                     <path d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
                   </svg>
@@ -85,7 +85,7 @@ export default function LogoutOtherBrowserSessions({ sessions }: Props) {
                     fill="none"
                     strokeLinecap="round"
                     strokeLinejoin="round"
-                    className="w-8 h-8 text-gray-500"
+                    className="text-gray-500 h-8 w-8"
                   >
                     <path d="M0 0h24v24H0z" stroke="none"></path>
                     <rect x="7" y="4" width="10" height="16" rx="1"></rect>
@@ -95,12 +95,12 @@ export default function LogoutOtherBrowserSessions({ sessions }: Props) {
               </div>
 
               <div className="ml-3">
-                <div className="text-sm text-gray-600">
+                <div className="text-gray-600 text-sm">
                   {session.agent.platform} - {session.agent.browser}
                 </div>
 
                 <div>
-                  <div className="text-xs text-gray-500">
+                  <div className="text-gray-500 text-xs">
                     {session.ip_address},
                     {session.is_current_device ? (
                       <span className="text-green-500 font-semibold">
@@ -117,7 +117,7 @@ export default function LogoutOtherBrowserSessions({ sessions }: Props) {
         </div>
       ) : null}
 
-      <div className="flex items-center mt-5">
+      <div className="mt-5 flex items-center">
         <JetButton onClick={confirmLogout}>
           Log Out Other Browser Sessions
         </JetButton>

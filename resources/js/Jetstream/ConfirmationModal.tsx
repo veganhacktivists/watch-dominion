@@ -8,9 +8,9 @@ JetConfirmationModal.Content = function JetConfirmationModalContent({
   return (
     <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
       <div className="sm:flex sm:items-start">
-        <div className="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10">
+        <div className="bg-red-100 mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full sm:mx-0 sm:h-10 sm:w-10">
           <svg
-            className="h-6 w-6 text-red-600"
+            className="text-red-600 h-6 w-6"
             stroke="currentColor"
             fill="none"
             viewBox="0 0 24 24"
@@ -37,7 +37,7 @@ JetConfirmationModal.Content = function JetConfirmationModalContent({
 JetConfirmationModal.Footer = function JetConfirmationModalFooter({
   children,
 }: PropsWithChildren<Record<string, unknown>>) {
-  return <div className="px-6 py-4 bg-gray-100 text-right">{children}</div>;
+  return <div className="bg-gray-100 px-6 py-4 text-right">{children}</div>;
 };
 
 export default function JetConfirmationModal({

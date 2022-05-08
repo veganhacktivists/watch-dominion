@@ -78,7 +78,7 @@ export default function ResetPassword({ token, email }: Props) {
           />
         </div>
 
-        <div className="flex items-center justify-end mt-4">
+        <div className="mt-4 flex items-center justify-end">
           <JetButton
             className={classNames({ 'opacity-25': form.processing })}
             disabled={form.processing}

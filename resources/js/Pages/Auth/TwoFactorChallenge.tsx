@@ -43,7 +43,7 @@ export default function TwoFactorChallenge() {
     <JetAuthenticationCard>
       <Head title="Two-Factor Confirmation" />
 
-      <div className="mb-4 text-sm text-gray-600">
+      <div className="text-gray-600 mb-4 text-sm">
         {recovery
           ? 'Please confirm access to your account by entering one of your emergency recovery codes.'
           : 'Please confirm access to your account by entering the authentication code provided by your authenticator application.'}
@@ -84,10 +84,10 @@ export default function TwoFactorChallenge() {
           </div>
         )}
 
-        <div className="flex items-center justify-end mt-4">
+        <div className="mt-4 flex items-center justify-end">
           <button
             type="button"
-            className="text-sm text-gray-600 hover:text-gray-900 underline cursor-pointer"
+            className="text-gray-600 hover:text-gray-900 cursor-pointer text-sm underline"
             onClick={toggleRecovery}
           >
             {recovery ? 'Use an authentication code' : 'Use a recovery code'}

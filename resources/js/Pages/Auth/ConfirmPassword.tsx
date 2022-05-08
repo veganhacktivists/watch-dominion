@@ -26,7 +26,7 @@ export default function ConfirmPassword() {
     <JetAuthenticationCard>
       <Head title="Secure Area" />
 
-      <div className="mb-4 text-sm text-gray-600">
+      <div className="text-gray-600 mb-4 text-sm">
         This is a secure area of the application. Please confirm your password
         before continuing.
       </div>
@@ -48,7 +48,7 @@ export default function ConfirmPassword() {
           />
         </div>
 
-        <div className="flex justify-end mt-4">
+        <div className="mt-4 flex justify-end">
           <JetButton
             className={classNames('ml-4', { 'opacity-25': form.processing })}
             disabled={form.processing}

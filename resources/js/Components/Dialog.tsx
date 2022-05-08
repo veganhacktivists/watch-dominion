@@ -43,14 +43,14 @@ export function Dialog({ lang, trigger, ...props }: Props) {
       <RadixDialog.Content
         className={[
           'absolute right-0 z-20 rounded-lg bg-white text-dark',
-          'motion-safe:animate-dialog tablet:motion-safe:animate-fadein',
+          'tablet:motion-safe:animate-fadein motion-safe:animate-dialog',
         ].join(' ')}
       >
         <div className="flex border-b border-dark border-opacity-20 px-5 py-4 font-bold">
           <RadixDialog.Title className="flex-1">
             Embed, share, make a change!
           </RadixDialog.Title>
-          <RadixDialog.Close className="absolute top-0 right-0 py-3 px-4 text-gray-dark">
+          <RadixDialog.Close className="text-gray-dark absolute top-0 right-0 py-3 px-4">
             <svg
               width="24"
               height="24"

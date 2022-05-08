@@ -52,14 +52,14 @@ export default function AppLayout({
 
       <JetBanner />
 
-      <div className="min-h-screen bg-gray-100">
-        <nav className="bg-white border-b border-gray-100">
+      <div className="bg-gray-100 min-h-screen">
+        <nav className="border-gray-100 border-b bg-white">
           {/* <!-- Primary Navigation Menu --> */}
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex justify-between h-16">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div className="flex h-16 justify-between">
               <div className="flex">
                 {/* <!-- Logo --> */}
-                <div className="flex-shrink-0 flex items-center">
+                <div className="flex flex-shrink-0 items-center">
                   <InertiaLink href={route('dashboard')}>
                     <JetApplicationMark className="block h-9 w-auto" />
                   </InertiaLink>
@@ -76,8 +76,8 @@ export default function AppLayout({
                 </div>
               </div>
 
-              <div className="hidden sm:flex sm:items-center sm:ml-6">
-                <div className="ml-3 relative">
+              <div className="hidden sm:ml-6 sm:flex sm:items-center">
+                <div className="relative ml-3">
                   {/* <!-- Teams Dropdown --> */}
                   {page.props.jetstream.hasTeamFeatures ? (
                     <JetDropdown
@@ -87,7 +87,7 @@ export default function AppLayout({
                         <span className="inline-flex rounded-md">
                           <button
                             type="button"
-                            className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:bg-gray-50 hover:text-gray-700 focus:outline-none focus:bg-gray-50 active:bg-gray-50 transition"
+                            className="border-transparent text-gray-500 hover:bg-gray-50 hover:text-gray-700 focus:bg-gray-50 active:bg-gray-50 inline-flex items-center rounded-md border bg-white px-3 py-2 text-sm font-medium leading-4 transition focus:outline-none"
                           >
                             {page.props.user.current_team?.name}
 
@@ -111,7 +111,7 @@ export default function AppLayout({
                         {/* <!-- Team Management --> */}
                         {page.props.jetstream.hasTeamFeatures ? (
                           <>
-                            <div className="block px-4 py-2 text-xs text-gray-400">
+                            <div className="text-gray-400 block px-4 py-2 text-xs">
                               Manage Team
                             </div>
 
@@ -130,10 +130,10 @@ export default function AppLayout({
                               </JetDropdownLink>
                             ) : null}
 
-                            <div className="border-t border-gray-100"></div>
+                            <div className="border-gray-100 border-t"></div>
 
                             {/* <!-- Team Switcher --> */}
-                            <div className="block px-4 py-2 text-xs text-gray-400">
+                            <div className="text-gray-400 block px-4 py-2 text-xs">
                               Switch Teams
                             </div>
 
@@ -147,7 +147,7 @@ export default function AppLayout({
                                     {team.id ==
                                       page.props.user.current_team_id && (
                                       <svg
-                                        className="mr-2 h-5 w-5 text-green-400"
+                                        className="text-green-400 mr-2 h-5 w-5"
                                         fill="none"
                                         strokeLinecap="round"
                                         strokeLinejoin="round"
@@ -171,13 +171,13 @@ export default function AppLayout({
                 </div>
 
                 {/* <!-- Settings Dropdown --> */}
-                <div className="ml-3 relative">
+                <div className="relative ml-3">
                   <JetDropdown
                     align="right"
                     width="48"
                     renderTrigger={() =>
                       page.props.jetstream.managesProfilePhotos ? (
-                        <button className="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 transition">
+                        <button className="border-transparent focus:border-gray-300 flex rounded-full border-2 text-sm transition focus:outline-none">
                           <img
                             className="h-8 w-8 rounded-full object-cover"
                             src={page.props.user.profile_photo_url}
@@ -188,7 +188,7 @@ export default function AppLayout({
                         <span className="inline-flex rounded-md">
                           <button
                             type="button"
-                            className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition"
+                            className="border-transparent text-gray-500 hover:text-gray-700 inline-flex items-center rounded-md border bg-white px-3 py-2 text-sm font-medium leading-4 transition focus:outline-none"
                           >
                             {page.props.user.name}
 
@@ -210,7 +210,7 @@ export default function AppLayout({
                     }
                   >
                     {/* <!-- Account Management --> */}
-                    <div className="block px-4 py-2 text-xs text-gray-400">
+                    <div className="text-gray-400 block px-4 py-2 text-xs">
                       Manage Account
                     </div>
 
@@ -224,7 +224,7 @@ export default function AppLayout({
                       </JetDropdownLink>
                     ) : null}
 
-                    <div className="border-t border-gray-100"></div>
+                    <div className="border-gray-100 border-t"></div>
 
                     {/* <!-- Authentication --> */}
                     <form onSubmit={logout}>
@@ -240,7 +240,7 @@ export default function AppLayout({
                   onClick={() =>
                     setShowingNavigationDropdown(!showingNavigationDropdown)
                   }
-                  className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition"
+                  className="text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:bg-gray-100 focus:text-gray-500 inline-flex items-center justify-center rounded-md p-2 transition focus:outline-none"
                 >
                   <svg
                     className="h-6 w-6"
@@ -281,7 +281,7 @@ export default function AppLayout({
               hidden: !showingNavigationDropdown,
             })}
           >
-            <div className="pt-2 pb-3 space-y-1">
+            <div className="space-y-1 pt-2 pb-3">
               <JetResponsiveNavLink
                 href={route('dashboard')}
                 active={route().current('dashboard')}
@@ -291,10 +291,10 @@ export default function AppLayout({
             </div>
 
             {/* <!-- Responsive Settings Options --> */}
-            <div className="pt-4 pb-1 border-t border-gray-200">
+            <div className="border-gray-200 border-t pt-4 pb-1">
               <div className="flex items-center px-4">
                 {page.props.jetstream.managesProfilePhotos ? (
-                  <div className="flex-shrink-0 mr-3">
+                  <div className="mr-3 flex-shrink-0">
                     <img
                       className="h-10 w-10 rounded-full object-cover"
                       src={page.props.user.profile_photo_url}
@@ -304,10 +304,10 @@ export default function AppLayout({
                 ) : null}
 
                 <div>
-                  <div className="font-medium text-base text-gray-800">
+                  <div className="text-gray-800 text-base font-medium">
                     {page.props.user.name}
                   </div>
-                  <div className="font-medium text-sm text-gray-500">
+                  <div className="text-gray-500 text-sm font-medium">
                     {page.props.user.email}
                   </div>
                 </div>
@@ -340,9 +340,9 @@ export default function AppLayout({
                 {/* <!-- Team Management --> */}
                 {page.props.jetstream.hasTeamFeatures ? (
                   <>
-                    <div className="border-t border-gray-200"></div>
+                    <div className="border-gray-200 border-t"></div>
 
-                    <div className="block px-4 py-2 text-xs text-gray-400">
+                    <div className="text-gray-400 block px-4 py-2 text-xs">
                       Manage Team
                     </div>
 
@@ -365,10 +365,10 @@ export default function AppLayout({
                       </JetResponsiveNavLink>
                     ) : null}
 
-                    <div className="border-t border-gray-200"></div>
+                    <div className="border-gray-200 border-t"></div>
 
                     {/* <!-- Team Switcher --> */}
-                    <div className="block px-4 py-2 text-xs text-gray-400">
+                    <div className="text-gray-400 block px-4 py-2 text-xs">
                       Switch Teams
                     </div>
                     {page.props.user?.all_teams?.map(team => (
@@ -377,7 +377,7 @@ export default function AppLayout({
                           <div className="flex items-center">
                             {team.id == page.props.user.current_team_id && (
                               <svg
-                                className="mr-2 h-5 w-5 text-green-400"
+                                className="text-green-400 mr-2 h-5 w-5"
                                 fill="none"
                                 strokeLinecap="round"
                                 strokeLinejoin="round"
@@ -403,7 +403,7 @@ export default function AppLayout({
         {/* <!-- Page Heading --> */}
         {renderHeader ? (
           <header className="bg-white shadow">
-            <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+            <div className="mx-auto max-w-7xl py-6 px-4 sm:px-6 lg:px-8">
               {renderHeader()}
             </div>
           </header>
