@@ -1,6 +1,6 @@
 import { Lang } from '@/types/lang';
 import * as RadixDialog from '@radix-ui/react-dialog';
-import React, { useCallback, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import Button from './Button';
 
 type Props = RadixDialog.DialogProps & {
@@ -14,9 +14,26 @@ export function Dialog({ lang, trigger, ...props }: Props) {
   Your browser does not support the video tag.
 </video>`;
 
-  // State
+  const contentRef = useRef<HTMLDivElement>(null);
   const embedRef = useRef<HTMLTextAreaElement>(null);
   const [copied, setCopied] = useState(false);
+  const [prevScrollY, setPrevScrollY] = useState(0);
+
+  // Scroll the dialog in view or back.
+  useEffect(() => {
+    if (props.open) setPrevScrollY(window.scrollY);
+
+    window.requestAnimationFrame(() => {
+      if (props.open) {
+        contentRef.current?.scrollIntoView({
+          behavior: 'smooth',
+          block: 'center',
+        });
+      } else {
+        window.scrollTo({ top: prevScrollY, behavior: 'smooth' });
+      }
+    });
+  }, [props.open]);
 
   // Event listeners
   const copy = useCallback(event => {
@@ -45,6 +62,7 @@ export function Dialog({ lang, trigger, ...props }: Props) {
           'absolute right-0 z-20 rounded-lg bg-white text-dark',
           'tablet:motion-safe:animate-fadein motion-safe:animate-dialog',
         ].join(' ')}
+        ref={contentRef}
       >
         <div className="flex border-b border-dark border-opacity-20 px-5 py-4 font-bold">
           <RadixDialog.Title className="flex-1">
