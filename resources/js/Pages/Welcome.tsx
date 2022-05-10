@@ -11,17 +11,22 @@ const twitterIntent =
   'https://twitter.com/intent/tweet?url=https%3A%2F%2Fwatchdominion.org&text=Watch%20the%20award-winning%20and%20life%20changing%20documentary%2C%20Dominion%21&hashtags=watchdominion';
 const youtubeUrl = 'https://www.youtube.com/watch?v=LQRAfJyEsko';
 
+type WelcomeProps = {
+  defaultLang: Lang;
+};
+
 // FIXME Optimize images how they are loaded.
-export default function Welcome() {
+export default function Welcome({ defaultLang = 'en' }: WelcomeProps) {
   const embedRef = useRef<HTMLAnchorElement>(null);
   const [visitors, setVisitors] = useState(10854);
   const [dialogOpen, setDialogOpen] = useState(false);
-  const [lang, setLang] = useState<Lang>('en');
+  const [lang, setLang] = useState<Lang>(defaultLang);
   const [loading, setLoading] = useState(false);
 
   const handleLangChange = (value: string) => {
     setLoading(true);
     setLang(value as Lang);
+    window.history.pushState(null, '', value === 'en' ? '/' : `/${value}`);
 
     window.setTimeout(() => {
       setLoading(false);
@@ -125,7 +130,7 @@ export default function Welcome() {
           </div>
           <div className="relative mt-4 flex">
             <Select
-              defaultValue="en"
+              defaultValue={lang}
               label="Language"
               onValueChange={handleLangChange}
             >
