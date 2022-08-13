@@ -48,6 +48,7 @@
     </noscript>
 
     <!-- Styles -->
+    <link rel="stylesheet" href="https://embed.watchdominion.org/dist/wd-player.css" />
     <link rel="stylesheet" href="{{ mix('css/app.css') }}" />
 
     <!-- Scripts -->
@@ -67,6 +68,7 @@
 
     @routes
     <script src="{{ mix('js/app.js') }}" defer></script>
+    <script src="https://embed.watchdominion.org/dist/wd-player.umd.js"></script>
 
     @inertiaHead
   </head>

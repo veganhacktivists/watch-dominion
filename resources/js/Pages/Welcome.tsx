@@ -71,6 +71,9 @@ export default function Welcome({ defaultLang = 'en' }: WelcomeProps) {
   // Fetch stats on page load.
   useEffect(() => {
     loadStats();
+
+    // @ts-ignore
+    window.wdplayer('#player');
   }, []);
 
   return (
@@ -100,7 +103,8 @@ export default function Welcome({ defaultLang = 'en' }: WelcomeProps) {
 
         <div className="mx-auto w-full max-w-5xl px-3">
           <div className="relative">
-            <video
+            <video id="player" />
+            {/* <video
               autoPlay
               muted
               className="aspect-video w-full"
@@ -114,7 +118,7 @@ export default function Welcome({ defaultLang = 'en' }: WelcomeProps) {
                 type="video/mp4"
               />
               Your browser does not support the video tag.
-            </video>
+            </video> */}
             {loading && (
               <p className="absolute inset-0 flex h-full w-full items-center justify-center bg-black text-white">
                 Loading...
@@ -131,7 +135,7 @@ export default function Welcome({ defaultLang = 'en' }: WelcomeProps) {
             </p>
           </div>
           <div className="relative mt-4 flex">
-            <Select
+            {/* <Select
               defaultValue={lang}
               label="Language"
               onValueChange={handleLangChange}
@@ -140,7 +144,7 @@ export default function Welcome({ defaultLang = 'en' }: WelcomeProps) {
               <Option value="fr">French</Option>
               <Option value="de">German</Option>
               <Option value="it">Italian</Option>
-            </Select>
+            </Select> */}
 
             <Dialog
               lang={lang}
