@@ -73,7 +73,9 @@ export default function Welcome({ defaultLang = 'en' }: WelcomeProps) {
     loadStats();
 
     // @ts-ignore
-    window.wdplayer('#player');
+    window.wdplayer('#player', {
+      color: '#f4c41a',
+    });
   }, []);
 
   return (
