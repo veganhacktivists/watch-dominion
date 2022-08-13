@@ -105,7 +105,7 @@ export default function Welcome({ defaultLang = 'en' }: WelcomeProps) {
 
         <div className="mx-auto w-full max-w-5xl px-3">
           <div className="relative">
-            <video id="player" crossorigin="anonymous" />
+            <video id="player" crossOrigin="anonymous" />
             {/* <video
               autoPlay
               muted
