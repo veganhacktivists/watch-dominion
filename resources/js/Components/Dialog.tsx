@@ -9,10 +9,16 @@ type Props = RadixDialog.DialogProps & {
 };
 
 export function Dialog({ lang, trigger, ...props }: Props) {
-  const embed = `<video width="100%" poster="https://watchdominion.org/posters/default.png" controls>
-  <source src="https://watchdominion.org/watch-dominion/${lang}" type="video/mp4">
-  Your browser does not support the video tag.
-</video>`;
+  const embed = `<div style="width: 100%; aspect-ratio: 16 / 9;">
+  <iframe
+    width="100%"
+    height="100%"
+    src="https://embed.watchdominion.org/dominion/embed.html"
+    frameborder="0"
+    allow="autoplay; picture-in-picture"
+    allowfullscreen
+  ></iframe>
+</div>`;
 
   const contentRef = useRef<HTMLDivElement>(null);
   const embedRef = useRef<HTMLTextAreaElement>(null);
@@ -56,10 +62,10 @@ export function Dialog({ lang, trigger, ...props }: Props) {
   return (
     <RadixDialog.Root {...props}>
       <RadixDialog.Trigger asChild>{trigger}</RadixDialog.Trigger>
-      <RadixDialog.Overlay className="fixed inset-0 bg-dark bg-opacity-20 motion-safe:animate-fadein" />
+      <RadixDialog.Overlay className="fixed inset-0 !m-0 bg-dark bg-opacity-20 motion-safe:animate-fadein" />
       <RadixDialog.Content
         className={[
-          'absolute right-0 z-20 rounded-lg bg-white text-dark',
+          'absolute right-0 top-9 z-20 !m-0 rounded-lg bg-white text-dark',
           'tablet:motion-safe:animate-fadein motion-safe:animate-dialog',
         ].join(' ')}
         ref={contentRef}
@@ -68,7 +74,7 @@ export function Dialog({ lang, trigger, ...props }: Props) {
           <RadixDialog.Title className="flex-1">
             Embed, share, make a change!
           </RadixDialog.Title>
-          <RadixDialog.Close className="text-gray-dark absolute top-0 right-0 py-3 px-4">
+          <RadixDialog.Close className="text-gray-dark absolute top-0 right-0 aspect-square py-3 px-4">
             <svg
               width="24"
               height="24"
@@ -85,12 +91,24 @@ export function Dialog({ lang, trigger, ...props }: Props) {
           </RadixDialog.Close>
         </div>
         <form className="flex flex-col space-y-5 p-5" onSubmit={copy}>
-          <p>Copy and paste this code into your website or blog.</p>
+          <p className="max-w-sm">
+            Copy and paste the below code into your website or blog. If you wish
+            to customize the main color or poster, you can embed our{' '}
+            <a
+              className="underline underline-offset-2"
+              href="https://embed.watchdominion.org"
+              rel="noopener noreferrer"
+            >
+              player
+            </a>{' '}
+            directly instead.
+          </p>
           <textarea
-            className="select-all rounded-md border-none text-gray selection:bg-accent/50 focus:ring-accent"
+            className="select-all overflow-x-scroll rounded-md border-none text-gray selection:bg-accent/50 focus:ring-accent"
             value={embed}
             ref={embedRef}
             rows={3}
+            wrap="off"
             readOnly
           />
           <Button as="button" className="mt-6 self-end" type="submit">

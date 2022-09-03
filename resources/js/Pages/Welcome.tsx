@@ -1,5 +1,6 @@
 import ArrowRight from '@/Components/ArrowRight';
 import Button from '@/Components/Button';
+import { Dialog } from '@/Components/Dialog';
 import Stat from '@/Components/Stat';
 import type { Lang } from '@/types/lang';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
@@ -17,6 +18,7 @@ type WelcomeProps = {
 export default function Welcome({ defaultLang = 'en' }: WelcomeProps) {
   const embedRef = useRef<HTMLAnchorElement>(null);
   const [visitors, setVisitors] = useState(10854);
+  const [dialogOpen, setDialogOpen] = useState(false);
   const [lang, setLang] = useState<Lang>(defaultLang);
   const [loading, setLoading] = useState(false);
 
@@ -29,6 +31,14 @@ export default function Welcome({ defaultLang = 'en' }: WelcomeProps) {
       setLoading(false);
     }, 1000);
   };
+
+  const handleEmbedClick = useCallback(
+    event => {
+      event.preventDefault();
+      setDialogOpen(!dialogOpen);
+    },
+    [dialogOpen],
+  );
 
   const handleShare = useCallback(async event => {
     if (navigator.share) {
@@ -60,11 +70,6 @@ export default function Welcome({ defaultLang = 'en' }: WelcomeProps) {
   // Fetch stats on page load.
   useEffect(() => {
     loadStats();
-
-    // @ts-ignore
-    window.wdplayer('#player', {
-      color: '#f4c41a',
-    });
   }, []);
 
   return (
@@ -93,23 +98,15 @@ export default function Welcome({ defaultLang = 'en' }: WelcomeProps) {
         </div>
 
         <div className="mx-auto w-full max-w-5xl px-3">
-          <div className="relative">
-            <video id="player" crossOrigin="anonymous" />
-            {/* <video
-              autoPlay
-              muted
-              className="aspect-video w-full"
-              poster="/posters/default.png"
-              preload="none"
-              controls
-              key={lang}
-            >
-              <source
-                src={`https://watchdominion.org/watch-dominion/${lang}`}
-                type="video/mp4"
-              />
-              Your browser does not support the video tag.
-            </video> */}
+          <div className="relative aspect-video w-full">
+            <iframe
+              width="100%"
+              height="100%"
+              src="https://embed.watchdominion.org/dominion/embed.html"
+              frameBorder="0"
+              allow="autoplay; picture-in-picture"
+              allowFullScreen
+            ></iframe>
             {loading && (
               <p className="absolute inset-0 flex h-full w-full items-center justify-center bg-black text-white">
                 Loading...
@@ -138,29 +135,37 @@ export default function Welcome({ defaultLang = 'en' }: WelcomeProps) {
             </Select> */}
 
             <div className="ml-auto flex space-x-4">
-              <a
-                href="https://embed.watchdominion.org"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex appearance-none items-center space-x-2 text-base"
-                title="Learn how to embed Dominion on your own site"
-                ref={embedRef}
-              >
-                <svg
-                  width="24"
-                  height="24"
-                  viewBox="0 0 33 33"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <circle cx="16.5" cy="16.5" r="16.5" fill="#f4c41a" />
-                  <path
-                    d="M6.40469 15.8359C6.05313 16.2266 6.05313 16.8125 6.40469 17.1641L11.7172 22.4766C12.1078 22.8672 12.6938 22.8672 13.0453 22.4766L13.9438 21.6172C14.2953 21.2266 14.2953 20.6406 13.9438 20.2891L10.1547 16.5L13.9438 12.75C14.2953 12.3984 14.2953 11.7734 13.9438 11.4219L13.0453 10.5234C12.6938 10.1719 12.1078 10.1719 11.7172 10.5234L6.40469 15.8359ZM26.5563 17.1641C26.9078 16.8125 26.9078 16.2266 26.5563 15.8359L21.2438 10.5234C20.8531 10.1719 20.2672 10.1719 19.9156 10.5234L19.0172 11.4219C18.6656 11.8125 18.6656 12.3984 19.0172 12.75L22.8063 16.5391L19.0172 20.2891C18.6656 20.6406 18.6656 21.2266 19.0172 21.6172L19.9156 22.4766C20.2672 22.8672 20.8531 22.8672 21.2438 22.4766L26.5563 17.1641Z"
-                    fill="#171716"
-                  />
-                </svg>
-                <span className="hidden sm:inline-block">Embed</span>
-              </a>
+              <Dialog
+                lang={lang}
+                open={dialogOpen}
+                onOpenChange={setDialogOpen}
+                trigger={
+                  <a
+                    href="https://embed.watchdominion.org"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex appearance-none items-center space-x-2 text-base"
+                    title="Learn how to embed Dominion on your own site"
+                    onClick={handleEmbedClick}
+                    ref={embedRef}
+                  >
+                    <svg
+                      width="24"
+                      height="24"
+                      viewBox="0 0 33 33"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <circle cx="16.5" cy="16.5" r="16.5" fill="#f4c41a" />
+                      <path
+                        d="M6.40469 15.8359C6.05313 16.2266 6.05313 16.8125 6.40469 17.1641L11.7172 22.4766C12.1078 22.8672 12.6938 22.8672 13.0453 22.4766L13.9438 21.6172C14.2953 21.2266 14.2953 20.6406 13.9438 20.2891L10.1547 16.5L13.9438 12.75C14.2953 12.3984 14.2953 11.7734 13.9438 11.4219L13.0453 10.5234C12.6938 10.1719 12.1078 10.1719 11.7172 10.5234L6.40469 15.8359ZM26.5563 17.1641C26.9078 16.8125 26.9078 16.2266 26.5563 15.8359L21.2438 10.5234C20.8531 10.1719 20.2672 10.1719 19.9156 10.5234L19.0172 11.4219C18.6656 11.8125 18.6656 12.3984 19.0172 12.75L22.8063 16.5391L19.0172 20.2891C18.6656 20.6406 18.6656 21.2266 19.0172 21.6172L19.9156 22.4766C20.2672 22.8672 20.8531 22.8672 21.2438 22.4766L26.5563 17.1641Z"
+                        fill="#171716"
+                      />
+                    </svg>
+                    <span className="hidden sm:inline-block">Embed</span>
+                  </a>
+                }
+              />
               <a
                 href="https://dominionmovement.com/download"
                 target="_blank"
