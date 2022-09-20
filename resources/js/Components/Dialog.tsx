@@ -74,7 +74,10 @@ export function Dialog({ lang, trigger, ...props }: Props) {
           <RadixDialog.Title className="flex-1">
             Embed, share, make a change!
           </RadixDialog.Title>
-          <RadixDialog.Close className="text-gray-dark absolute top-0 right-0 aspect-square py-3 px-4">
+          <RadixDialog.Close
+            className="text-gray-dark absolute top-0 right-0 aspect-square py-3 px-4"
+            data-click="embed-close"
+          >
             <svg
               width="24"
               height="24"
@@ -98,6 +101,7 @@ export function Dialog({ lang, trigger, ...props }: Props) {
               className="underline underline-offset-2"
               href="https://embed.watchdominion.org"
               rel="noopener noreferrer"
+              data-click="embed-player"
             >
               player
             </a>{' '}
@@ -111,7 +115,12 @@ export function Dialog({ lang, trigger, ...props }: Props) {
             wrap="off"
             readOnly
           />
-          <Button as="button" className="mt-6 self-end" type="submit">
+          <Button
+            as="button"
+            className="mt-6 self-end"
+            type="submit"
+            data-click="embed-copy"
+          >
             {copied ? 'Copied!' : 'Copy'}
           </Button>
         </form>
