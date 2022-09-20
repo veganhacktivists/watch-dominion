@@ -52,6 +52,7 @@
     <link rel="stylesheet" href="{{ mix('css/app.css') }}" />
 
     <!-- Scripts -->
+    <script async src="https://vbcc.veganhacktivists.org/analytics.js"></script>
     <script
       async
       src="https://www.googletagmanager.com/gtag/js?id=G-0LCL16PGGL"

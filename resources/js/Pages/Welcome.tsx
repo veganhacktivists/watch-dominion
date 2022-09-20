@@ -116,7 +116,11 @@ export default function Welcome({ defaultLang = 'en' }: WelcomeProps) {
           <div className="flex items-center justify-center bg-accent p-3 text-center text-black">
             <p>
               Video not loading? Watch Dominion{' '}
-              <a href={youtubeUrl} className="font-semibold underline">
+              <a
+                href={youtubeUrl}
+                className="font-semibold underline"
+                data-click="redirect-youtube"
+              >
                 on YouTube
               </a>
               !
@@ -148,6 +152,7 @@ export default function Welcome({ defaultLang = 'en' }: WelcomeProps) {
                     title="Learn how to embed Dominion on your own site"
                     onClick={handleEmbedClick}
                     ref={embedRef}
+                    data-click="embed"
                   >
                     <svg
                       width="24"
@@ -173,6 +178,7 @@ export default function Welcome({ defaultLang = 'en' }: WelcomeProps) {
                 className="flex appearance-none items-center space-x-2 text-base"
                 title="Download the movie from the Farm Transparency Project"
                 ref={embedRef}
+                data-click="download"
               >
                 <svg
                   width="24"
@@ -222,6 +228,7 @@ export default function Welcome({ defaultLang = 'en' }: WelcomeProps) {
             as="externalLink"
             className="group mt-12"
             href="https://vbcamp.org/watchdominion"
+            data-click="go-to-challenge"
           >
             <span className="mr-6 font-bold">Go to challenge</span>
             <ArrowRight />
@@ -258,6 +265,7 @@ export default function Welcome({ defaultLang = 'en' }: WelcomeProps) {
                 className="group mt-12"
                 href={twitterIntent}
                 onClick={handleShare}
+                data-click="share"
               >
                 <span className="mr-6 font-medium">Tap here to share!</span>
                 <ArrowRight />
@@ -279,6 +287,7 @@ export default function Welcome({ defaultLang = 'en' }: WelcomeProps) {
                 variant="secondary"
                 className="group mt-6"
                 href="https://www.netflix.com/title/81014008"
+                data-click="redirect-seaspiracy"
               >
                 <span className="mr-6">Seaspiracy</span>
                 <ArrowRight />
@@ -289,6 +298,7 @@ export default function Welcome({ defaultLang = 'en' }: WelcomeProps) {
                 variant="secondary"
                 className="group mt-6"
                 href="https://www.netflix.com/id-en/title/81157840"
+                data-click="redirect-game-changers"
               >
                 <span className="mr-6">Game Changers</span>
                 <ArrowRight />
@@ -299,6 +309,7 @@ export default function Welcome({ defaultLang = 'en' }: WelcomeProps) {
                 variant="secondary"
                 className="group mt-6"
                 href="https://www.netflix.com/id-en/title/80174177"
+                data-click="redirect-what-the-health"
               >
                 <span className="mr-6">What The Health</span>
                 <ArrowRight />
@@ -321,6 +332,7 @@ export default function Welcome({ defaultLang = 'en' }: WelcomeProps) {
               variant="secondary"
               className="group mt-6"
               href="https://nutritionfacts.org"
+              data-click="redirect-nutrition-facts"
             >
               <span className="mr-6">Nutrition Facts</span>
               <ArrowRight />
@@ -331,6 +343,7 @@ export default function Welcome({ defaultLang = 'en' }: WelcomeProps) {
               variant="secondary"
               className="group mt-6"
               href="https://happycow.net"
+              data-click="redirect-happycow"
             >
               <span className="mr-6">HappyCow</span>
               <ArrowRight />
@@ -341,6 +354,7 @@ export default function Welcome({ defaultLang = 'en' }: WelcomeProps) {
               variant="secondary"
               className="group mt-6"
               href="https://plantbasednews.org"
+              data-click="redirect-plant-based-news"
             >
               <span className="mr-6">Plant Based News</span>
               <ArrowRight />
@@ -351,6 +365,7 @@ export default function Welcome({ defaultLang = 'en' }: WelcomeProps) {
               variant="secondary"
               className="group mt-6"
               href="https://nutritionfacts.org/book/how-not-to-die/"
+              data-click="redirect-how-not-to-die"
             >
               <span className="mr-6">How Not To Die</span>
               <ArrowRight />
@@ -405,12 +420,14 @@ export default function Welcome({ defaultLang = 'en' }: WelcomeProps) {
             <a
               className="text-bold mt-6 rounded-md bg-black px-4 py-2 text-white lg:hidden"
               href="https://patreon.com/veganhacktivists"
+              data-click="redirect-support-us"
             >
               Donate
             </a>
             <a
               className="text-bold hidden rounded-md bg-black px-4 py-2 text-white lg:block"
               href="https://patreon.com/veganhacktivists"
+              data-click="redirect-support-us"
             >
               Support us
             </a>
@@ -420,7 +437,11 @@ export default function Welcome({ defaultLang = 'en' }: WelcomeProps) {
         <div className="mx-auto flex w-full max-w-5xl flex-col items-center p-8 text-center lg:flex-row lg:text-left">
           <span className="flex-1">
             A project by the{' '}
-            <a className="font-bold" href="https://veganhacktivists.org">
+            <a
+              className="font-bold"
+              href="https://veganhacktivists.org"
+              data-click="redirect-vegan-hacktivists"
+            >
               Vegan Hacktivists
             </a>
           </span>
@@ -428,6 +449,7 @@ export default function Welcome({ defaultLang = 'en' }: WelcomeProps) {
             <a
               href="https://www.instagram.com/veganhacktivists"
               className="text-white"
+              data-click="redirect-instagram"
             >
               <span className="sr-only">Instagram</span>
               <svg
@@ -447,6 +469,7 @@ export default function Welcome({ defaultLang = 'en' }: WelcomeProps) {
             <a
               href="https://github.com/veganhacktivists"
               className="text-white"
+              data-click="redirect-github"
             >
               <span className="sr-only">GitHub</span>
               <svg
