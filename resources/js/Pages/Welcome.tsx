@@ -14,7 +14,7 @@ type WelcomeProps = {
   defaultLang: Lang;
 };
 
-// FIXME Optimize images how they are loaded.
+// FIXME Optimize how images they are loaded.
 export default function Welcome({ defaultLang = 'en' }: WelcomeProps) {
   const embedRef = useRef<HTMLAnchorElement>(null);
   const [visitors, setVisitors] = useState(10854);
@@ -41,21 +41,31 @@ export default function Welcome({ defaultLang = 'en' }: WelcomeProps) {
   );
 
   const handleShare = useCallback(async event => {
-    if (navigator.share) {
-      event.preventDefault();
+    event.preventDefault();
 
-      const res = await fetch('/img/watchdominion.jpg');
-      const blob = await res.blob();
-      const file = new File([blob], 'watchdominion.jpg', {
-        type: 'image/jpeg',
-      });
+    const res = await fetch('/img/watchdominion.jpg');
+    const blob = await res.blob();
+    const file = new File([blob], 'watchdominion.jpg', {
+      type: 'image/jpeg',
+    });
 
-      await navigator.share({
-        text: 'Watch the award-winning and life changing documentary, Dominion!',
-        url: 'https://watchdominion.org',
-        files: [file],
-      });
+    const shareData = {
+      text: 'Watch the award-winning and life changing documentary, Dominion!',
+      url: 'https://watchdominion.org',
+      files: [file],
+    };
+
+    if ('canShare' in navigator && navigator.canShare(shareData)) {
+      try {
+        await navigator.share(shareData);
+      } catch (error) {
+        // Ignore cancellation errors
+      }
+      return;
     }
+
+    // Fall back to sharing on Twitter.
+    window.location.href = twitterIntent;
   }, []);
 
   async function loadStats() {
