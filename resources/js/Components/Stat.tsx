@@ -30,7 +30,11 @@ export default function Stat({ className, value }: Props) {
     const formatter = new Intl.NumberFormat('en-EN');
     animate(
       progress => {
-        ref.current!.innerHTML = formatter.format(Math.floor(progress * value));
+        if (ref.current) {
+          ref.current.innerHTML = formatter.format(
+            Math.floor(progress * value),
+          );
+        }
       },
       { duration: 3 },
     );
