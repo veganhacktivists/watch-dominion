@@ -307,7 +307,7 @@ export default function Welcome({ defaultLang = 'en' }: WelcomeProps) {
                 as="externalLink"
                 variant="secondary"
                 className="group mt-6"
-                href="https://www.netflix.com/id-en/title/81157840"
+                href="https://gamechangersmovie.com"
                 data-click="redirect-game-changers"
               >
                 <span className="mr-6">Game Changers</span>
