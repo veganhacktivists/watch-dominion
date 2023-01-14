@@ -115,7 +115,7 @@ export default function Welcome({ defaultLang = 'en' }: WelcomeProps) {
             <iframe
               width="100%"
               height="100%"
-              src="https://embed.watchdominion.org/dominion/embed.html"
+              src="https://embed.watchdominion.org/dominion/embed.html?referrer=watchdominionorg"
               allow="autoplay; picture-in-picture"
               allowFullScreen
             ></iframe>
