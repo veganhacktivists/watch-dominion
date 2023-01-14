@@ -33,40 +33,43 @@ export default function Welcome({ defaultLang = 'en' }: WelcomeProps) {
   };
 
   const handleEmbedClick = useCallback(
-    event => {
+    (event: React.MouseEvent<HTMLAnchorElement>) => {
       event.preventDefault();
       setDialogOpen(!dialogOpen);
     },
     [dialogOpen],
   );
 
-  const handleShare = useCallback(async event => {
-    event.preventDefault();
+  const handleShare = useCallback(
+    async (event: React.MouseEvent<HTMLAnchorElement>) => {
+      event.preventDefault();
 
-    const res = await fetch('/img/watchdominion.jpg');
-    const blob = await res.blob();
-    const file = new File([blob], 'watchdominion.jpg', {
-      type: 'image/jpeg',
-    });
+      const res = await fetch('/img/watchdominion.jpg');
+      const blob = await res.blob();
+      const file = new File([blob], 'watchdominion.jpg', {
+        type: 'image/jpeg',
+      });
 
-    const shareData = {
-      text: 'Watch the award-winning and life changing documentary, Dominion!',
-      url: 'https://watchdominion.org',
-      files: [file],
-    };
+      const shareData = {
+        text: 'Watch the award-winning and life changing documentary, Dominion!',
+        url: 'https://watchdominion.org',
+        files: [file],
+      };
 
-    if ('canShare' in navigator && navigator.canShare(shareData)) {
-      try {
-        await navigator.share(shareData);
-      } catch (error) {
-        // Ignore cancellation errors
+      if ('canShare' in navigator && navigator.canShare(shareData)) {
+        try {
+          await navigator.share(shareData);
+        } catch (error) {
+          // Ignore cancellation errors
+        }
+        return;
       }
-      return;
-    }
 
-    // Fall back to sharing on Twitter.
-    window.location.href = twitterIntent;
-  }, []);
+      // Fall back to sharing on Twitter.
+      window.location.href = twitterIntent;
+    },
+    [],
+  );
 
   async function loadStats() {
     const res = await fetch('https://watch-dominion-stats.vercel.app/visitor');
@@ -113,7 +116,6 @@ export default function Welcome({ defaultLang = 'en' }: WelcomeProps) {
               width="100%"
               height="100%"
               src="https://embed.watchdominion.org/dominion/embed.html"
-              frameBorder="0"
               allow="autoplay; picture-in-picture"
               allowFullScreen
             ></iframe>

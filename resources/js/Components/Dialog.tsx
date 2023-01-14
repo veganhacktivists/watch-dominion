@@ -42,7 +42,7 @@ export function Dialog({ lang, trigger, ...props }: Props) {
   }, [props.open]);
 
   // Event listeners
-  const copy = useCallback(event => {
+  const copy = useCallback((event: React.FormEvent) => {
     event.preventDefault();
 
     embedRef.current?.focus();
