@@ -74,8 +74,6 @@
     @inertiaHead
   </head>
   <body class="bg-dark text-white">
-    @inertia @env ('local')
-    <script src="http://localhost:3000/browser-sync/browser-sync-client.js"></script>
-    @endenv
+    @inertia
   </body>
 </html>
