@@ -418,10 +418,10 @@ export default function Welcome({ defaultLang = 'en' }: WelcomeProps) {
             </svg>
             <div className="flex-1 lg:flex lg:flex-col">
               <h2 className="mt-6 font-rubik text-2xl font-bold text-dark lg:hidden">
-                Support us on Patreon!
+                Support our work!
               </h2>
               <h2 className="mt-6 hidden font-rubik text-2xl font-bold text-dark lg:mt-0 lg:block">
-                Please consider supporting us on Patreon!
+                Please consider supporting our work!
               </h2>
               <p className="mt-4 text-lg text-dark lg:mt-0">
                 This free-to-use service wouldn't be possible without your
@@ -431,14 +431,14 @@ export default function Welcome({ defaultLang = 'en' }: WelcomeProps) {
 
             <a
               className="text-bold mt-6 rounded-md bg-black px-4 py-2 text-white lg:hidden"
-              href="https://patreon.com/veganhacktivists"
+              href="https://veganhacktivists.org/support"
               data-click="redirect-support-us"
             >
               Donate
             </a>
             <a
               className="text-bold hidden rounded-md bg-black px-4 py-2 text-white lg:block"
-              href="https://patreon.com/veganhacktivists"
+              href="https://veganhacktivists.org/support"
               data-click="redirect-support-us"
             >
               Support us
