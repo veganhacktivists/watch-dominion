@@ -115,8 +115,10 @@ export default function Welcome({ defaultLang = 'en' }: WelcomeProps) {
             <iframe
               width="100%"
               height="100%"
-              src="https://embed.watchdominion.org/dominion/embed.html?referrer=watchdominionorg"
-              allow="autoplay; picture-in-picture"
+              src="https://iframe.mediadelivery.net/embed/135301/89232d42-e290-40fc-917d-5669478ee73b?autoplay=true&loop=false&muted=false&preload=false"
+              style={{ border: 'none' }}
+              loading="lazy"
+              allow="accelerometer;gyroscope;autoplay;encrypted-media;picture-in-picture;"
               allowFullScreen
             ></iframe>
             {loading && (
