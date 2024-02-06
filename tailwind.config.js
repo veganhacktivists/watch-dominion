@@ -1,12 +1,8 @@
-const defaultTheme = require('tailwindcss/defaultTheme');
-
-module.exports = {
+/** @type {import('tailwindcss').Config} */
+export default {
   content: [
-    './vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php',
-    './vendor/laravel/jetstream/**/*.blade.php',
-    './storage/framework/views/*.php',
-    './resources/views/**/*.blade.php',
-    './resources/js/**/*.tsx',
+    "./index.html",
+    "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
     colors: {
@@ -27,7 +23,7 @@ module.exports = {
         fadein: 'dialog 300ms ease-out',
       },
       fontFamily: {
-        sans: ['Rubik', ...defaultTheme.fontFamily.sans],
+        sans: ['Rubik'],
       },
       keyframes: {
         dialog: {
@@ -42,4 +38,5 @@ module.exports = {
     },
   },
   plugins: [require('@tailwindcss/forms'), require('@tailwindcss/typography')],
-};
+}
+
