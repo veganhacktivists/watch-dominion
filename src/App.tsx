@@ -11,7 +11,7 @@ const twitterIntent =
 const youtubeUrl = 'https://www.youtube.com/watch?v=LQRAfJyEsko';
 
 type WelcomeProps = {
-  defaultLang: Lang;
+  defaultLang?: Lang;
 };
 
 // FIXME Optimize how images they are loaded.
@@ -19,8 +19,8 @@ export default function App({ defaultLang = 'en' }: WelcomeProps) {
   const embedRef = useRef<HTMLAnchorElement>(null);
   const [visitors, setVisitors] = useState(10854);
   const [dialogOpen, setDialogOpen] = useState(false);
-  const [lang, setLang] = useState<Lang>(defaultLang);
-  const [loading, setLoading] = useState(false);
+  const [lang, _setLang] = useState<Lang>(defaultLang);
+  const [loading, _setLoading] = useState(false);
 
   const handleEmbedClick = useCallback(
     (event: React.MouseEvent<HTMLAnchorElement>) => {

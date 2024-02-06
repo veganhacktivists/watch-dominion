@@ -1,5 +1,5 @@
 import { animate } from 'motion';
-import React, { useEffect, useReducer, useRef } from 'react';
+import { useEffect, useReducer, useRef } from 'react';
 
 type Props = {
   className?: String;
