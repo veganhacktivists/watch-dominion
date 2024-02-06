@@ -181,7 +181,7 @@ export default function App({ defaultLang = 'en' }: WelcomeProps) {
                 rel="noopener noreferrer"
                 className="flex appearance-none items-center space-x-2 text-base"
                 title="Download the movie from the Farm Transparency Project"
-              ref={embedRef}
+                ref={embedRef}
                 data-click="download"
               >
                 <svg
