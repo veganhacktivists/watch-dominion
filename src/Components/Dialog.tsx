@@ -1,14 +1,12 @@
-import { Lang } from '@/types/lang';
 import * as RadixDialog from '@radix-ui/react-dialog';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import Button from './Button';
 
 type Props = RadixDialog.DialogProps & {
-  lang: Lang;
   trigger?: React.ReactNode;
 };
 
-export function Dialog({ lang, trigger, ...props }: Props) {
+export function Dialog({ trigger, ...props }: Props) {
   const embed = `<div style="width: 100%; aspect-ratio: 16 / 9;">
   <iframe
     width="100%"

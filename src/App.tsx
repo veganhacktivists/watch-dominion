@@ -144,7 +144,6 @@ export default function App({ defaultLang = 'en' }: WelcomeProps) {
 
             <div className="ml-auto flex space-x-4">
               <Dialog
-                lang={lang}
                 open={dialogOpen}
                 onOpenChange={setDialogOpen}
                 trigger={
