@@ -141,7 +141,7 @@ export default function App({ defaultLang = 'en' }: WelcomeProps) {
             {<Select
               value={lang}
               label="Language"
-              onValueChange={(value) => setLang(value as Lang)}
+              onValueChange={(value: Lang) => setLang(value)}
             >
               {Object.entries(langs).map(([lang, label]) => (
                 <Option key={lang} value={lang}>{label}</Option>
