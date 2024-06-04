@@ -1,14 +1,16 @@
-import ArrowRight from '@/Components/ArrowRight';
-import Button from '@/Components/Button';
-import { Dialog } from '@/Components/Dialog';
-import Stat from '@/Components/Stat';
-import type { Lang } from './types/lang';
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import ArrowRight from "@/Components/ArrowRight";
+import Button from "@/Components/Button";
+import { Dialog } from "@/Components/Dialog";
+import Stat from "@/Components/Stat";
+import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { Option, Select } from "@/Components/Select.tsx";
+import { Lang } from "@/types/lang.ts";
+import { isLangSupported, langs } from "@/data/langs.ts";
+import { videos } from "@/data/videos.ts";
 
 // Constants
 const twitterIntent =
   'https://twitter.com/intent/tweet?url=https%3A%2F%2Fwatchdominion.org&text=Watch%20the%20award-winning%20and%20life%20changing%20documentary%2C%20Dominion%21&hashtags=watchdominion';
-const youtubeUrl = 'https://www.youtube.com/watch?v=LQRAfJyEsko';
 
 type WelcomeProps = {
   defaultLang?: Lang;
@@ -19,8 +21,10 @@ export default function App({ defaultLang = 'en' }: WelcomeProps) {
   const embedRef = useRef<HTMLAnchorElement>(null);
   const [visitors, setVisitors] = useState(10854);
   const [dialogOpen, setDialogOpen] = useState(false);
-  const [lang, _setLang] = useState<Lang>(defaultLang);
-  const [loading, _setLoading] = useState(false);
+  const [lang, setLang] = useState<Lang>(defaultLang);
+
+  const embedUrl = useMemo(() => `${videos[lang].embedUrl}&captions=${navigator.language.substring(0, 2)}`, [lang]);
+  const youtubeUrl = useMemo(() => videos[lang].youtubeUrl, [lang]);
 
   const handleEmbedClick = useCallback(
     (event: React.MouseEvent<HTMLAnchorElement>) => {
@@ -70,10 +74,18 @@ export default function App({ defaultLang = 'en' }: WelcomeProps) {
     }
   }
 
+  // If the user's browser language is supported, set it as the default language.
+  useEffect(() => {
+    const navLang = navigator.language.substring(0, 2);
+    const initialLanguage = isLangSupported(navLang) ? navLang : defaultLang;
+
+    setLang(initialLanguage);
+  }, [defaultLang]);
+
   // Fetch stats on page load.
   useEffect(() => {
     loadStats();
-  }, []);
+  }, [loadStats]);
 
   return (
     <>
@@ -105,17 +117,12 @@ export default function App({ defaultLang = 'en' }: WelcomeProps) {
             <iframe
               width="100%"
               height="100%"
-              src="https://iframe.mediadelivery.net/embed/135301/89232d42-e290-40fc-917d-5669478ee73b?autoplay=true&loop=false&muted=false&preload=false"
+              src={embedUrl}
               style={{ border: 'none' }}
               loading="lazy"
               allow="accelerometer;gyroscope;autoplay;encrypted-media;picture-in-picture;"
               allowFullScreen
             ></iframe>
-            {loading && (
-              <p className="absolute inset-0 flex h-full w-full items-center justify-center bg-black text-white">
-                Loading...
-              </p>
-            )}
           </div>
           <div className="flex items-center justify-center bg-accent p-3 text-center text-black">
             <p>
@@ -131,16 +138,15 @@ export default function App({ defaultLang = 'en' }: WelcomeProps) {
             </p>
           </div>
           <div className="relative mt-4 flex">
-            {/* <Select
-              defaultValue={lang}
+            {<Select
+              value={lang}
               label="Language"
-              onValueChange={handleLangChange}
+              onValueChange={(value) => setLang(value as Lang)}
             >
-              <Option value="en">English</Option>
-              <Option value="fr">French</Option>
-              <Option value="de">German</Option>
-              <Option value="it">Italian</Option>
-            </Select> */}
+              {Object.entries(langs).map(([lang, label]) => (
+                <Option key={lang} value={lang}>{label}</Option>
+              ))}
+            </Select>}
 
             <div className="ml-auto flex space-x-4">
               <Dialog
