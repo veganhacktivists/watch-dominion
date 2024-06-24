@@ -35,12 +35,18 @@
     <link rel="stylesheet" href="https://embed.watchdominion.org/dist/wd-player.css" />
 
     <!-- Scripts -->
-    <script async src="https://vbcc.veganhacktivists.org/analytics.js"></script>
     <script
       async
+      type="text/plain"
+      data-category="analytics"
+      src="https://vbcc.veganhacktivists.org/analytics.js"></script>
+    <script
+      async
+      type="text/plain"
+      data-category="googletags"
       src="https://www.googletagmanager.com/gtag/js?id=G-0LCL16PGGL"
     ></script>
-    <script>
+    <script type="text/plain" data-category="googletags">
       window.dataLayer = window.dataLayer || [];
       function gtag() {
         dataLayer.push(arguments);

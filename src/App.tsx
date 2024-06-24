@@ -4,6 +4,8 @@ import { Dialog } from '@/Components/Dialog';
 import Stat from '@/Components/Stat';
 import type { Lang } from './types/lang';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
+import "vanilla-cookieconsent/dist/cookieconsent.css";
+import * as CookieConsent from "vanilla-cookieconsent";
 
 // Constants
 const twitterIntent =
@@ -29,6 +31,62 @@ export default function App({ defaultLang = 'en' }: WelcomeProps) {
     },
     [dialogOpen],
   );
+
+  useEffect(() => {
+        CookieConsent.run({
+          categories: {
+            necessary: {
+              enabled: true,
+              readOnly: true
+            },
+            googletags: {
+              enabled: false,
+            },
+            analytics: {
+              enabled: false,
+            },
+          },
+          language: {
+            default: 'en',
+            translations: {
+                en: {
+                  consentModal: {
+                      title: 'We use cookies',
+                      description: 'This website uses cookies in order to enhance the overall user experience.',
+                      acceptAllBtn: 'Accept all',
+                      acceptNecessaryBtn: 'Reject all',
+                      showPreferencesBtn: 'Manage Individual preferences'
+                  },
+                  preferencesModal: {
+                      title: 'Manage cookie preferences',
+                      acceptAllBtn: 'Accept all',
+                      acceptNecessaryBtn: 'Reject all',
+                      savePreferencesBtn: 'Accept current selection',
+                      closeIconLabel: 'Close modal',
+                      sections: [
+                          {
+                              title: 'Strictly Necessary cookies',
+                              description: 'These cookies are essential for the proper functioning of the website and cannot be disabled.',
+
+                              linkedCategory: 'necessary'
+                          },
+                          {
+                              title: 'Analytics',
+                              description: 'These information help us gather click counts and the source of the traffic to improve the performance of our site.',
+                              linkedCategory: 'analytics'
+                          },
+                          {
+                              title: 'Google Tagmanager',
+                              description: 'These cookies allow us to count visits and traffic sources so we can measure and improve the performance of our site. They help us to know which pages are the most and least popular and see how visitors move around the site.',
+                              linkedCategory: 'googletags'
+                          },
+                      ]
+                  }
+              }
+            }
+          },
+        });
+    }, []);
 
   const handleShare = useCallback(
     async (event: React.MouseEvent<HTMLAnchorElement>) => {
