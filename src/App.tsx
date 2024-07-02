@@ -23,8 +23,8 @@ export default function App({ defaultLang = 'en' }: WelcomeProps) {
   const [dialogOpen, setDialogOpen] = useState(false);
   const [lang, setLang] = useState<Lang>(defaultLang);
 
-  const embedUrl = useMemo(() => `${videos[lang].embedUrl}&captions=${navigator.language.substring(0, 2)}`, [lang]);
-  const youtubeUrl = useMemo(() => videos[lang].youtubeUrl, [lang]);
+  const embedUrl = `${videos[lang].embedUrl}&captions=${navigator.language.substring(0, 2)}`;
+  const youtubeUrl = videos[lang].youtubeUrl;
 
   const handleEmbedClick = useCallback(
     (event: React.MouseEvent<HTMLAnchorElement>) => {
