@@ -12,6 +12,8 @@ import { videos } from "@/data/videos.ts";
 const twitterIntent =
   'https://twitter.com/intent/tweet?url=https%3A%2F%2Fwatchdominion.org&text=Watch%20the%20award-winning%20and%20life%20changing%20documentary%2C%20Dominion%21&hashtags=watchdominion';
 
+const navLang = navigator.language.substring(0, 2);
+
 type WelcomeProps = {
   defaultLang?: Lang;
 };
@@ -21,7 +23,7 @@ export default function App({ defaultLang = 'en' }: WelcomeProps) {
   const embedRef = useRef<HTMLAnchorElement>(null);
   const [visitors, setVisitors] = useState(10854);
   const [dialogOpen, setDialogOpen] = useState(false);
-  const [lang, setLang] = useState<Lang>(defaultLang);
+  const [lang, setLang] = useState(isLangSupported(navLang) ? navLang : defaultLang);
 
   const embedUrl = `${videos[lang].embedUrl}&captions=${navigator.language.substring(0, 2)}`;
   const youtubeUrl = videos[lang].youtubeUrl;
@@ -73,14 +75,6 @@ export default function App({ defaultLang = 'en' }: WelcomeProps) {
       setVisitors(visitors + data.visitors);
     }
   }
-
-  // If the user's browser language is supported, set it as the default language.
-  useEffect(() => {
-    const navLang = navigator.language.substring(0, 2);
-    const initialLanguage = isLangSupported(navLang) ? navLang : defaultLang;
-
-    setLang(initialLanguage);
-  }, [defaultLang]);
 
   // Fetch stats on page load.
   useEffect(() => {
