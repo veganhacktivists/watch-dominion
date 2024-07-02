@@ -2,7 +2,7 @@ import ArrowRight from "@/Components/ArrowRight";
 import Button from "@/Components/Button";
 import { Dialog } from "@/Components/Dialog";
 import Stat from "@/Components/Stat";
-import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { Option, Select } from "@/Components/Select.tsx";
 import { Lang } from "@/types/lang.ts";
 import { isLangSupported, langs } from "@/data/langs.ts";
