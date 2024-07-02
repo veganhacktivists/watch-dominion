@@ -138,7 +138,7 @@ export default function App({ defaultLang = 'en' }: WelcomeProps) {
             </p>
           </div>
           <div className="relative mt-4 flex">
-            {<Select
+            <Select
               value={lang}
               label="Language"
               onValueChange={(value: Lang) => setLang(value)}
@@ -146,7 +146,7 @@ export default function App({ defaultLang = 'en' }: WelcomeProps) {
               {Object.entries(langs).map(([lang, label]) => (
                 <Option key={lang} value={lang}>{label}</Option>
               ))}
-            </Select>}
+            </Select>
 
             <div className="ml-auto flex space-x-4">
               <Dialog
