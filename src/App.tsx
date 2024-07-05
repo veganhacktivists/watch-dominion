@@ -79,7 +79,7 @@ export default function App({ defaultLang = 'en' }: WelcomeProps) {
   // Fetch stats on page load.
   useEffect(() => {
     loadStats();
-  }, [loadStats]);
+  }, []);
 
   return (
     <>
