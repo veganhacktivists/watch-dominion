@@ -17,5 +17,5 @@ export const videos = {
   de: {
     embedUrl: "https://iframe.mediadelivery.net/embed/135301/eba1dc19-db0f-4378-9eaf-f6d31777d095?autoplay=true&loop=false&muted=false&preload=false",
     youtubeUrl: "https://www.youtube.com/watch?v=V7DrljVAaYk",
-  }
+  },
 } as const satisfies Record<Lang, Video>;
