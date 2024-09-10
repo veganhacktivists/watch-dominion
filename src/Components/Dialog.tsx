@@ -2,17 +2,19 @@ import * as RadixDialog from '@radix-ui/react-dialog';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import Button from './Button';
 import { videos } from '@/data/videos';
+import { useLang } from '@/data/langs';
 
 type Props = RadixDialog.DialogProps & {
   trigger?: React.ReactNode;
 };
 
 export function Dialog({ trigger, ...props }: Props) {
+  const [lang] = useLang();
   const embed = `<div style="width: 100%; aspect-ratio: 16 / 9;">
   <iframe
     width="100%"
     height="100%"
-    src="${videos.en.embedUrl}"
+    src="${videos[lang].embedUrl}"
     frameborder="0"
     allow="autoplay; picture-in-picture"
     allowfullscreen
@@ -98,7 +100,7 @@ export function Dialog({ trigger, ...props }: Props) {
             to customize the main color or poster, you can embed our{' '}
             <a
               className="underline underline-offset-2"
-              href={videos.en.embedUrl}
+              href={videos[lang].embedUrl}
               rel="noopener noreferrer"
               data-click="embed-player"
             >

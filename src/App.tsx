@@ -1,31 +1,43 @@
-import ArrowRight from "@/Components/ArrowRight";
-import Button from "@/Components/Button";
-import { Dialog } from "@/Components/Dialog";
-import Stat from "@/Components/Stat";
-import React, { useCallback, useEffect, useRef, useState } from "react";
-import { Option, Select } from "@/Components/Select.tsx";
-import { Lang } from "@/types/lang.ts";
-import { isLangSupported, langs } from "@/data/langs.ts";
-import { videos } from "@/data/videos.ts";
+import ArrowRight from '@/Components/ArrowRight';
+import Button from '@/Components/Button';
+import { Dialog } from '@/Components/Dialog';
+import Stat from '@/Components/Stat';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { Option, Select } from '@/Components/Select.tsx';
+import { Lang } from '@/types/lang.ts';
+import {
+  LanguageContext,
+  isLangSupported,
+  langs,
+  useLang,
+} from '@/data/langs.ts';
+import { videos } from '@/data/videos.ts';
 
 // Constants
 const twitterIntent =
   'https://twitter.com/intent/tweet?url=https%3A%2F%2Fwatchdominion.org&text=Watch%20the%20award-winning%20and%20life%20changing%20documentary%2C%20Dominion%21&hashtags=watchdominion';
 
 const navLang = navigator.language.substring(0, 2);
+const defaultLang = 'en';
+const initialLang = isLangSupported(navLang) ? navLang : defaultLang;
 
-type WelcomeProps = {
-  defaultLang?: Lang;
-};
+export default function AppWrapper() {
+  const langState = useState(initialLang);
+  return (
+    <LanguageContext.Provider value={langState}>
+      <App />
+    </LanguageContext.Provider>
+  );
+}
 
 // FIXME Optimize how images they are loaded.
-export default function App({ defaultLang = 'en' }: WelcomeProps) {
+function App() {
   const embedRef = useRef<HTMLAnchorElement>(null);
   const [visitors, setVisitors] = useState(10854);
   const [dialogOpen, setDialogOpen] = useState(false);
-  const [lang, setLang] = useState(isLangSupported(navLang) ? navLang : defaultLang);
+  const [lang, setLang] = useLang();
 
-  const embedUrl = `${videos[lang].embedUrl}&captions=${navigator.language.substring(0, 2)}`;
+  const embedUrl = `${videos[lang].embedUrl}&captions=${navLang}`;
   const youtubeUrl = videos[lang].youtubeUrl;
 
   const handleEmbedClick = useCallback(
