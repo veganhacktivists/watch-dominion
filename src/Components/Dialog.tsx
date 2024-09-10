@@ -1,6 +1,7 @@
 import * as RadixDialog from '@radix-ui/react-dialog';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import Button from './Button';
+import { videos } from '@/data/videos';
 
 type Props = RadixDialog.DialogProps & {
   trigger?: React.ReactNode;
@@ -11,7 +12,7 @@ export function Dialog({ trigger, ...props }: Props) {
   <iframe
     width="100%"
     height="100%"
-    src="https://embed.watchdominion.org/dominion/embed.html"
+    src="${videos.en.embedUrl}"
     frameborder="0"
     allow="autoplay; picture-in-picture"
     allowfullscreen
@@ -97,7 +98,7 @@ export function Dialog({ trigger, ...props }: Props) {
             to customize the main color or poster, you can embed our{' '}
             <a
               className="underline underline-offset-2"
-              href="https://embed.watchdominion.org"
+              href={videos.en.embedUrl}
               rel="noopener noreferrer"
               data-click="embed-player"
             >

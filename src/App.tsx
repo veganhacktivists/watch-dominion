@@ -148,7 +148,7 @@ export default function App({ defaultLang = 'en' }: WelcomeProps) {
                 onOpenChange={setDialogOpen}
                 trigger={
                   <a
-                    href="https://embed.watchdominion.org"
+                    href={embedUrl}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex appearance-none items-center space-x-2 text-base"
