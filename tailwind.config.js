@@ -1,17 +1,14 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: [
-    "./index.html",
-    "./src/**/*.{js,ts,jsx,tsx}",
-  ],
+  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     colors: {
-      accent: '#f4c41a',
-      beige: '#efe9dc',
-      black: '#000',
-      dark: '#171716',
-      gray: '#57524e',
-      white: '#f6f5f2',
+      accent: "#f4c41a",
+      beige: "#efe9dc",
+      black: "#000",
+      dark: "#171716",
+      gray: "#57524e",
+      white: "#f6f5f2",
     },
     fontFamily: {
       rock: "'Rock Salt', cursive",
@@ -19,24 +16,23 @@ export default {
     },
     extend: {
       animation: {
-        dialog: 'dialog 300ms ease-out',
-        fadein: 'dialog 300ms ease-out',
+        dialog: "dialog 300ms ease-out",
+        fadein: "dialog 300ms ease-out",
       },
       fontFamily: {
-        sans: ['Rubik'],
+        sans: ["Rubik"],
       },
       keyframes: {
         dialog: {
-          '0%': { transform: 'translateY(3rem)', opacity: 0 },
-          '100%': { transform: 'translateY(0)', opacity: 1 },
+          "0%": { transform: "translateY(3rem)", opacity: 0 },
+          "100%": { transform: "translateY(0)", opacity: 1 },
         },
         fadein: {
-          '0%': { opacity: 0 },
-          '100%': { opacity: 1 },
+          "0%": { opacity: 0 },
+          "100%": { opacity: 1 },
         },
       },
     },
   },
-  plugins: [require('@tailwindcss/forms'), require('@tailwindcss/typography')],
-}
-
+  plugins: [require("@tailwindcss/forms"), require("@tailwindcss/typography")],
+};

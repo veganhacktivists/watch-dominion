@@ -1,6 +1,6 @@
 import { cx } from "@/lib/cx.ts";
-import * as RadixSelect from '@radix-ui/react-select';
-import React from 'react';
+import * as RadixSelect from "@radix-ui/react-select";
+import React from "react";
 
 type SelectProps = RadixSelect.SelectProps & {
   children: React.ReactNode;
@@ -60,7 +60,7 @@ export const Content = ({
   ...props
 }: RadixSelect.SelectContentProps) => (
   <RadixSelect.Content
-    className={cx('rounded-md bg-white p-0.5 shadow-lg', className)}
+    className={cx("rounded-md bg-white p-0.5 shadow-lg", className)}
     {...props}
   />
 );
@@ -72,7 +72,7 @@ export const Item = React.forwardRef(
   ) => (
     <RadixSelect.Item
       className={cx(
-        'cursor-default rounded-md py-1 px-2 text-black outline-none focus:bg-accent',
+        "cursor-default rounded-md py-1 px-2 text-black outline-none focus:bg-accent",
         className,
       )}
       {...props}
@@ -86,7 +86,7 @@ export const Label = ({
   ...props
 }: RadixSelect.SelectLabelProps) => (
   <RadixSelect.Label
-    className={cx('py-1 px-2 text-xs text-gray', className)}
+    className={cx("py-1 px-2 text-xs text-gray", className)}
     {...props}
   />
 );

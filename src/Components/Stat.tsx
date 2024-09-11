@@ -1,5 +1,5 @@
-import { animate } from 'motion';
-import { useEffect, useReducer, useRef } from 'react';
+import { animate } from "motion";
+import { useEffect, useReducer, useRef } from "react";
 
 type Props = {
   className?: String;
@@ -11,8 +11,8 @@ export default function Stat({ className, value }: Props) {
   const [seen, setSeen] = useReducer(() => true, false);
 
   useEffect(() => {
-    const intersectionObserver = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
+    const intersectionObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
         if (entry.isIntersecting) {
           setSeen();
         }
@@ -27,9 +27,9 @@ export default function Stat({ className, value }: Props) {
   }, []);
 
   useEffect(() => {
-    const formatter = new Intl.NumberFormat('en-EN');
+    const formatter = new Intl.NumberFormat("en-EN");
     animate(
-      progress => {
+      (progress) => {
         if (ref.current) {
           ref.current.innerHTML = formatter.format(
             Math.floor(progress * value),
