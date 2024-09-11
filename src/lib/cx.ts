@@ -3,5 +3,5 @@
  * them into a string.
  */
 export function cx(...args: Array<string | undefined | false>) {
-  return args.filter(arg => arg && typeof arg === 'string').join(' ');
+  return args.filter((arg) => arg && typeof arg === "string").join(" ");
 }

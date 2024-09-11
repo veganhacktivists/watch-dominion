@@ -1,24 +1,24 @@
-import ArrowRight from '@/Components/ArrowRight';
-import Button from '@/Components/Button';
-import { Dialog } from '@/Components/Dialog';
-import Stat from '@/Components/Stat';
-import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { Option, Select } from '@/Components/Select.tsx';
-import { Lang } from '@/types/lang.ts';
+import ArrowRight from "@/Components/ArrowRight";
+import Button from "@/Components/Button";
+import { Dialog } from "@/Components/Dialog";
+import Stat from "@/Components/Stat";
+import React, { useCallback, useEffect, useRef, useState } from "react";
+import { Option, Select } from "@/Components/Select.tsx";
+import { Lang } from "@/types/lang.ts";
 import {
   LanguageContext,
   isLangSupported,
   langs,
   useLang,
-} from '@/data/langs.ts';
-import { videos } from '@/data/videos.ts';
+} from "@/data/langs.ts";
+import { videos } from "@/data/videos.ts";
 
 // Constants
 const twitterIntent =
-  'https://twitter.com/intent/tweet?url=https%3A%2F%2Fwatchdominion.org&text=Watch%20the%20award-winning%20and%20life%20changing%20documentary%2C%20Dominion%21&hashtags=watchdominion';
+  "https://twitter.com/intent/tweet?url=https%3A%2F%2Fwatchdominion.org&text=Watch%20the%20award-winning%20and%20life%20changing%20documentary%2C%20Dominion%21&hashtags=watchdominion";
 
 const navLang = navigator.language.substring(0, 2);
-const defaultLang = 'en';
+const defaultLang = "en";
 const initialLang = isLangSupported(navLang) ? navLang : defaultLang;
 
 export default function AppWrapper() {
@@ -52,19 +52,19 @@ function App() {
     async (event: React.MouseEvent<HTMLAnchorElement>) => {
       event.preventDefault();
 
-      const res = await fetch('/img/watchdominion.jpg');
+      const res = await fetch("/img/watchdominion.jpg");
       const blob = await res.blob();
-      const file = new File([blob], 'watchdominion.jpg', {
-        type: 'image/jpeg',
+      const file = new File([blob], "watchdominion.jpg", {
+        type: "image/jpeg",
       });
 
       const shareData = {
-        text: 'Watch the award-winning and life changing documentary, Dominion!',
-        url: 'https://watchdominion.org',
+        text: "Watch the award-winning and life changing documentary, Dominion!",
+        url: "https://watchdominion.org",
         files: [file],
       };
 
-      if ('canShare' in navigator && navigator.canShare(shareData)) {
+      if ("canShare" in navigator && navigator.canShare(shareData)) {
         try {
           await navigator.share(shareData);
         } catch (error) {
@@ -80,7 +80,7 @@ function App() {
   );
 
   async function loadStats() {
-    const res = await fetch('https://watch-dominion-stats.vercel.app/visitor');
+    const res = await fetch("https://watch-dominion-stats.vercel.app/visitor");
 
     if (res.ok) {
       const data = await res.json();
@@ -124,7 +124,7 @@ function App() {
               width="100%"
               height="100%"
               src={embedUrl}
-              style={{ border: 'none' }}
+              style={{ border: "none" }}
               loading="lazy"
               allow="accelerometer;gyroscope;autoplay;encrypted-media;picture-in-picture;"
               allowFullScreen
@@ -132,7 +132,7 @@ function App() {
           </div>
           <div className="flex items-center justify-center bg-accent p-3 text-center text-black">
             <p>
-              Video not loading? Watch Dominion{' '}
+              Video not loading? Watch Dominion{" "}
               <a
                 href={youtubeUrl}
                 className="font-semibold underline"
@@ -150,7 +150,9 @@ function App() {
               onValueChange={(value: Lang) => setLang(value)}
             >
               {Object.entries(langs).map(([lang, label]) => (
-                <Option key={lang} value={lang}>{label}</Option>
+                <Option key={lang} value={lang}>
+                  {label}
+                </Option>
               ))}
             </Select>
 
@@ -451,7 +453,7 @@ function App() {
 
         <div className="mx-auto flex w-full max-w-5xl flex-col items-center p-8 text-center lg:flex-row lg:text-left">
           <span className="flex-1">
-            A project by the{' '}
+            A project by the{" "}
             <a
               className="font-bold"
               href="https://veganhacktivists.org"

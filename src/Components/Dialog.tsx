@@ -1,8 +1,8 @@
-import * as RadixDialog from '@radix-ui/react-dialog';
-import React, { useCallback, useEffect, useRef, useState } from 'react';
-import Button from './Button';
-import { videos } from '@/data/videos';
-import { useLang } from '@/data/langs';
+import * as RadixDialog from "@radix-ui/react-dialog";
+import React, { useCallback, useEffect, useRef, useState } from "react";
+import Button from "./Button";
+import { videos } from "@/data/videos";
+import { useLang } from "@/data/langs";
 
 type Props = RadixDialog.DialogProps & {
   trigger?: React.ReactNode;
@@ -33,11 +33,11 @@ export function Dialog({ trigger, ...props }: Props) {
     window.requestAnimationFrame(() => {
       if (props.open) {
         contentRef.current?.scrollIntoView({
-          behavior: 'smooth',
-          block: 'center',
+          behavior: "smooth",
+          block: "center",
         });
       } else {
-        window.scrollTo({ top: prevScrollY, behavior: 'smooth' });
+        window.scrollTo({ top: prevScrollY, behavior: "smooth" });
       }
     });
   }, [props.open]);
@@ -66,9 +66,9 @@ export function Dialog({ trigger, ...props }: Props) {
       <RadixDialog.Overlay className="fixed inset-0 !m-0 bg-dark bg-opacity-20 motion-safe:animate-fadein" />
       <RadixDialog.Content
         className={[
-          'absolute right-0 top-9 z-20 !m-0 rounded-lg bg-white text-dark',
-          'tablet:motion-safe:animate-fadein motion-safe:animate-dialog',
-        ].join(' ')}
+          "absolute right-0 top-9 z-20 !m-0 rounded-lg bg-white text-dark",
+          "tablet:motion-safe:animate-fadein motion-safe:animate-dialog",
+        ].join(" ")}
         ref={contentRef}
       >
         <div className="flex border-b border-dark border-opacity-20 px-5 py-4 font-bold">
@@ -97,7 +97,7 @@ export function Dialog({ trigger, ...props }: Props) {
         <form className="flex flex-col space-y-5 p-5" onSubmit={copy}>
           <p className="max-w-sm">
             Copy and paste the below code into your website or blog. If you wish
-            to customize the main color or poster, you can embed our{' '}
+            to customize the main color or poster, you can embed our{" "}
             <a
               className="underline underline-offset-2"
               href={videos[lang].embedUrl}
@@ -105,7 +105,7 @@ export function Dialog({ trigger, ...props }: Props) {
               data-click="embed-player"
             >
               player
-            </a>{' '}
+            </a>{" "}
             directly instead.
           </p>
           <textarea
@@ -122,7 +122,7 @@ export function Dialog({ trigger, ...props }: Props) {
             type="submit"
             data-click="embed-copy"
           >
-            {copied ? 'Copied!' : 'Copy'}
+            {copied ? "Copied!" : "Copy"}
           </Button>
         </form>
       </RadixDialog.Content>
