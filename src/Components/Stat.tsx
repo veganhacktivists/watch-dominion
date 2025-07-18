@@ -2,7 +2,7 @@ import { animate } from "motion";
 import { useEffect, useReducer, useRef } from "react";
 
 type Props = {
-  className?: String;
+  className?: string;
   value: number;
 };
 
@@ -29,7 +29,7 @@ export default function Stat({ className, value }: Props) {
   useEffect(() => {
     const formatter = new Intl.NumberFormat("en-EN");
     animate(
-      (progress) => {
+      (progress: number) => {
         if (ref.current) {
           ref.current.innerHTML = formatter.format(
             Math.floor(progress * value),
