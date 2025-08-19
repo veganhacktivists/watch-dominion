@@ -37,7 +37,7 @@ function App() {
   const [dialogOpen, setDialogOpen] = useState(false);
   const [lang, setLang] = useLang();
 
-  const embedUrl = `${videos[lang].embedUrl}&captions=${navLang}`;
+  const embedUrl = videos[lang].embedUrl;
   const youtubeUrl = videos[lang].youtubeUrl;
 
   const handleEmbedClick = useCallback(
