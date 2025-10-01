@@ -33,7 +33,7 @@ export default function AppWrapper() {
 // FIXME Optimize how images they are loaded.
 function App() {
   const embedRef = useRef<HTMLAnchorElement>(null);
-  const [visitors, setVisitors] = useState(10854);
+  const [visitors, setVisitors] = useState<number | undefined>();
   const [dialogOpen, setDialogOpen] = useState(false);
   const [lang, setLang] = useLang();
 
@@ -80,11 +80,11 @@ function App() {
   );
 
   async function loadStats() {
-    const res = await fetch("https://watch-dominion-stats.vercel.app/visitor");
+    const res = await fetch("https://visitors.watchdominion.org");
 
     if (res.ok) {
       const data = await res.json();
-      setVisitors(visitors + data.visitors);
+      setVisitors(data.visitors);
     }
   }
 
@@ -262,7 +262,13 @@ function App() {
                 <span className="text-2xl font-black uppercase">
                   You are visitor
                 </span>
-                <Stat className="mt-2" value={visitors} />
+                {
+                  visitors
+                  ?
+                    <Stat className="mt-2" value={visitors} />
+                  :
+                    <span className="mt-2 text-3xl font-bold">...</span>
+                }
               </div>
             </div>
 
