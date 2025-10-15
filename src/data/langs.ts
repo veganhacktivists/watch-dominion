@@ -18,8 +18,6 @@ export const LanguageContext = React.createContext<
 >(undefined);
 
 export const useLang = () => {
-  const langState =
-    React.useContext(LanguageContext) ??
+  return React.useContext(LanguageContext) ??
     (["en", () => {}] as NonNullable<ContextType<typeof LanguageContext>>);
-  return langState;
 };
