@@ -1,11 +1,12 @@
-import { Lang } from "@/types/lang.ts";
-import React, { ContextType, Dispatch, SetStateAction } from "react";
+import { Lang } from '@/types/lang.ts';
+import React, { ContextType, Dispatch, SetStateAction } from 'react';
 
 export const langs = {
   en: "English",
   de: "Deutsch",
   fr: "Français",
   it: "Italiano",
+  es: "Español",
 } as const satisfies Record<string, string>;
 
 export function isLangSupported(lang: string): lang is Lang {

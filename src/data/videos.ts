@@ -22,4 +22,9 @@ export const videos = {
       "https://iframe.mediadelivery.net/embed/135301/eba1dc19-db0f-4378-9eaf-f6d31777d095?autoplay=true&loop=false&muted=false&preload=false",
     youtubeUrl: "https://www.youtube.com/watch?v=V7DrljVAaYk",
   },
+  es: {
+    embedUrl:
+      "https://iframe.mediadelivery.net/embed/135301/8ec5e9a2-ba0d-4d7d-a0e9-e73fb7ea44d4?autoplay=true&loop=false&muted=false&preload=false",
+    youtubeUrl: "https://www.youtube.com/watch?v=QlaiMB3dobA",
+  },
 } as const satisfies Record<Lang, Video>;
