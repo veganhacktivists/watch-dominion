@@ -5,10 +5,12 @@ import React from "react";
 type SelectProps = RadixSelect.SelectProps & {
   children: React.ReactNode;
   label: string;
+  contentPosition?: RadixSelect.SelectContentProps["position"];
+  contentClassName?: string;
 };
 export const Select = React.forwardRef(
   (
-    { children, label, ...props }: SelectProps,
+    { children, label, contentPosition, contentClassName, ...props }: SelectProps,
     ref: React.Ref<HTMLButtonElement>,
   ) => (
     <Root {...props}>
@@ -30,7 +32,7 @@ export const Select = React.forwardRef(
           </svg>
         </Icon>
       </Trigger>
-      <Content>
+      <Content position={contentPosition} className={contentClassName}>
         <Viewport>
           <Group>
             <Label>{label}</Label>

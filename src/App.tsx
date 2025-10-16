@@ -145,6 +145,8 @@ function App() {
           </div>
           <div className="relative mt-4 flex">
             <Select
+              contentPosition="popper"
+              contentClassName="px-1"
               value={lang}
               label="Language"
               onValueChange={(value: Lang) => setLang(value)}
