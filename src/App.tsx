@@ -67,7 +67,7 @@ function App() {
       if ("canShare" in navigator && navigator.canShare(shareData)) {
         try {
           await navigator.share(shareData);
-        } catch (error) {
+        } catch {
           // Ignore cancellation errors
         }
         return;
