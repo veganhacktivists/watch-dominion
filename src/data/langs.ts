@@ -1,5 +1,5 @@
-import { Lang } from '@/types/lang.ts';
-import React, { ContextType, Dispatch, SetStateAction } from 'react';
+import { Lang } from "@/types/lang.ts";
+import React, { ContextType, Dispatch, SetStateAction } from "react";
 
 export const langs = {
   en: "English",
@@ -18,6 +18,8 @@ export const LanguageContext = React.createContext<
 >(undefined);
 
 export const useLang = () => {
-  return React.useContext(LanguageContext) ??
-    (["en", () => {}] as NonNullable<ContextType<typeof LanguageContext>>);
+  return (
+    React.useContext(LanguageContext) ??
+    (["en", () => {}] as NonNullable<ContextType<typeof LanguageContext>>)
+  );
 };

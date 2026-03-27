@@ -21,22 +21,23 @@
   "devDependencies": {
     "@types/react": "^19.2.1",
     "@types/react-dom": "^19.2.1",
-    "@typescript-eslint/eslint-plugin": "^8.37.0",
-    "@typescript-eslint/parser": "^8.37.0",
-    "@vitejs/plugin-react-swc": "^3.11.0",
+    "@typescript-eslint/eslint-plugin": "^8.57.2",
+    "@typescript-eslint/parser": "^8.57.2",
+    "@vitejs/plugin-react-swc": "^4.3.0",
     "autoprefixer": "^10.4.21",
-    "eslint": "^9.31.0",
-    "eslint-plugin-react-hooks": "^5.2.0",
-    "eslint-plugin-react-refresh": "^0.4.20",
+    "eslint": "^10.1.0",
+    "eslint-plugin-react-hooks": "^7.0.1",
+    "eslint-plugin-react-refresh": "^0.5.2",
+    "globals": "^17.4.0",
     "postcss": "^8.5.6",
     "prettier": "4.0.0-alpha.10",
-    "tailwindcss": "^3.4.17",
+    "tailwindcss": "^3.4.19",
     "typescript": "^5.8.3",
-    "vite": "^7.0.5"
+    "vite": "^8.0.3"
   },
   "pnpm": {
     "overrides": {
-      "minimatch": "^9.0.6"
+      "minimatch": "^10.0.0"
     }
   },
   "packageManager": "pnpm@9.4.0+sha256.b6fd0bfda555e7e584ad7e56b30c68b01d5a04f9ee93989f4b93ca8473c49c74"

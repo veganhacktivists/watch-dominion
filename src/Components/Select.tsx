@@ -10,7 +10,13 @@ type SelectProps = RadixSelect.SelectProps & {
 };
 export const Select = React.forwardRef(
   (
-    { children, label, contentPosition, contentClassName, ...props }: SelectProps,
+    {
+      children,
+      label,
+      contentPosition,
+      contentClassName,
+      ...props
+    }: SelectProps,
     ref: React.Ref<HTMLButtonElement>,
   ) => (
     <Root {...props}>
