@@ -264,13 +264,11 @@ function App() {
                 <span className="text-2xl font-black uppercase">
                   You are visitor
                 </span>
-                {
-                  visitors
-                  ?
-                    <Stat className="mt-2" value={visitors} />
-                  :
-                    <span className="mt-2 text-3xl font-bold">...</span>
-                }
+                {visitors ? (
+                  <Stat className="mt-2" value={visitors} />
+                ) : (
+                  <span className="mt-2 text-3xl font-bold">...</span>
+                )}
               </div>
             </div>
 
