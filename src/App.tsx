@@ -2,7 +2,7 @@ import ArrowRight from "@/Components/ArrowRight";
 import Button from "@/Components/Button";
 import { Dialog } from "@/Components/Dialog";
 import Stat from "@/Components/Stat";
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Option, Select } from "@/Components/Select.tsx";
 import { Lang } from "@/types/lang.ts";
 import {
@@ -32,7 +32,6 @@ export default function AppWrapper() {
 
 // FIXME Optimize how images they are loaded.
 function App() {
-  const embedRef = useRef<HTMLAnchorElement>(null);
   const [visitors, setVisitors] = useState<number | undefined>();
   const [dialogOpen, setDialogOpen] = useState(false);
   const [lang, setLang] = useLang();
@@ -175,7 +174,6 @@ function App() {
                     className="flex appearance-none items-center space-x-2 text-base"
                     title="Learn how to embed Dominion on your own site"
                     onClick={handleEmbedClick}
-                    ref={embedRef}
                     data-click="embed"
                   >
                     <svg
@@ -201,7 +199,6 @@ function App() {
                 rel="noopener noreferrer"
                 className="flex appearance-none items-center space-x-2 text-base"
                 title="Download the movie from the Farm Transparency Project"
-                ref={embedRef}
                 data-click="download"
               >
                 <svg
