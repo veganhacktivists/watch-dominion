@@ -43,22 +43,25 @@ export function Dialog({ trigger, ...props }: Props) {
   }, [props.open]);
 
   // Event listeners
-  const copy = useCallback((event: React.FormEvent) => {
-    event.preventDefault();
+  const copy = useCallback(
+    (event: React.FormEvent) => {
+      event.preventDefault();
 
-    embedRef.current?.focus();
-    embedRef.current?.select();
-    const selection = window.getSelection();
+      embedRef.current?.focus();
+      embedRef.current?.select();
 
-    if (selection) {
-      navigator.clipboard.writeText(selection.toString());
-    }
-
-    setCopied(true);
-    window.setTimeout(() => {
-      setCopied(false);
-    }, 3000);
-  }, []);
+      navigator.clipboard.writeText(embed).then(
+        () => {
+          setCopied(true);
+          window.setTimeout(() => {
+            setCopied(false);
+          }, 3000);
+        },
+        () => {},
+      );
+    },
+    [embed],
+  );
 
   return (
     <RadixDialog.Root {...props}>
