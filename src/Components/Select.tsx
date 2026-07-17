@@ -99,15 +99,5 @@ export const Label = ({
   />
 );
 
-// Reexport everything else.
-export const Group = RadixSelect.Group;
-export const Icon = RadixSelect.Icon;
-export const ItemIndicator = RadixSelect.ItemIndicator;
-export const ItemText = RadixSelect.ItemText;
-export const Root = RadixSelect.Root;
-export const ScrollDownButton = RadixSelect.ScrollDownButton;
-export const ScrollUpButton = RadixSelect.ScrollUpButton;
-export const Separator = RadixSelect.Separator;
-export const Trigger = RadixSelect.Trigger;
-export const Value = RadixSelect.Value;
-export const Viewport = RadixSelect.Viewport;
+// Unstyled primitives used as-is.
+const { Group, Icon, ItemText, Root, Trigger, Value, Viewport } = RadixSelect;
