@@ -24,11 +24,11 @@ export function Dialog({ trigger, ...props }: Props) {
   const contentRef = useRef<HTMLDivElement>(null);
   const embedRef = useRef<HTMLTextAreaElement>(null);
   const [copied, setCopied] = useState(false);
-  const [prevScrollY, setPrevScrollY] = useState(0);
+  const prevScrollY = useRef(0);
 
   // Scroll the dialog in view or back.
   useEffect(() => {
-    if (props.open) setPrevScrollY(window.scrollY);
+    if (props.open) prevScrollY.current = window.scrollY;
 
     window.requestAnimationFrame(() => {
       if (props.open) {
@@ -37,7 +37,7 @@ export function Dialog({ trigger, ...props }: Props) {
           block: "center",
         });
       } else {
-        window.scrollTo({ top: prevScrollY, behavior: "smooth" });
+        window.scrollTo({ top: prevScrollY.current, behavior: "smooth" });
       }
     });
   }, [props.open]);
