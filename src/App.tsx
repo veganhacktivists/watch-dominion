@@ -86,18 +86,16 @@ function App() {
     [],
   );
 
-  async function loadStats() {
-    const res = await fetch("https://visitors.watchdominion.org");
-
-    if (res.ok) {
-      const data = await res.json();
-      setVisitors(data.visitors);
-    }
-  }
-
   // Fetch stats on page load.
   useEffect(() => {
-    loadStats();
+    fetch("https://visitors.watchdominion.org")
+      .then((res) => (res.ok ? res.json() : null))
+      .then((data) => {
+        if (typeof data?.visitors === "number") {
+          setVisitors(data.visitors);
+        }
+      })
+      .catch(() => {});
   }, []);
 
   return (
