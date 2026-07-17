@@ -52,25 +52,32 @@ function App() {
     async (event: React.MouseEvent<HTMLAnchorElement>) => {
       event.preventDefault();
 
-      const res = await fetch("/img/watchdominion.jpg");
-      const blob = await res.blob();
-      const file = new File([blob], "watchdominion.jpg", {
-        type: "image/jpeg",
-      });
+      try {
+        const res = await fetch("/img/watchdominion.jpg");
 
-      const shareData = {
-        text: "Watch the award-winning and life changing documentary, Dominion!",
-        url: "https://watchdominion.org",
-        files: [file],
-      };
+        if (res.ok) {
+          const blob = await res.blob();
+          const file = new File([blob], "watchdominion.jpg", {
+            type: "image/jpeg",
+          });
 
-      if ("canShare" in navigator && navigator.canShare(shareData)) {
-        try {
-          await navigator.share(shareData);
-        } catch {
-          // Ignore cancellation errors
+          const shareData = {
+            text: "Watch the award-winning and life changing documentary, Dominion!",
+            url: "https://watchdominion.org",
+            files: [file],
+          };
+
+          if ("canShare" in navigator && navigator.canShare(shareData)) {
+            try {
+              await navigator.share(shareData);
+            } catch {
+              // Ignore cancellation errors
+            }
+            return;
+          }
         }
-        return;
+      } catch {
+        // Fall through to sharing on Twitter.
       }
 
       // Fall back to sharing on Twitter.
