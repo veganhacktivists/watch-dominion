@@ -6,6 +6,8 @@ type Props = {
   value: number;
 };
 
+const formatter = new Intl.NumberFormat("en-US");
+
 export default function Stat({ className, value }: Props) {
   const ref = useRef<HTMLSpanElement>(null);
   const [seen, setSeen] = useReducer(() => true, false);
@@ -27,17 +29,20 @@ export default function Stat({ className, value }: Props) {
   }, []);
 
   useEffect(() => {
-    const formatter = new Intl.NumberFormat("en-EN");
-    animate(
-      (progress: number) => {
+    if (!seen) return;
+
+    const controls = animate(0, value, {
+      duration: 3,
+      onUpdate: (latest) => {
         if (ref.current) {
-          ref.current.innerHTML = formatter.format(
-            Math.floor(progress * value),
-          );
+          ref.current.textContent = formatter.format(Math.floor(latest));
         }
       },
-      { duration: 3 },
-    );
+    });
+
+    return () => {
+      controls.stop();
+    };
   }, [seen, value]);
 
   return (
@@ -45,7 +50,7 @@ export default function Stat({ className, value }: Props) {
       className={`text-4xl font-black tabular-nums text-accent ${className}`}
       ref={ref}
     >
-      {value}
+      {formatter.format(value)}
     </span>
   );
 }
