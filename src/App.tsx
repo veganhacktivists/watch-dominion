@@ -118,7 +118,18 @@ function App() {
             </h2>
           </div>
           <div className="hidden lg:block">
-            <img src="/img/pig-desktop.jpg" alt="" width="512" height="447" />
+            <picture>
+              <source
+                media="(min-width: 1024px)"
+                srcSet="/img/pig-desktop.jpg"
+              />
+              <img
+                src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+                alt=""
+                width="512"
+                height="447"
+              />
+            </picture>
           </div>
         </div>
 
