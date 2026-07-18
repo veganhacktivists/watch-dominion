@@ -468,14 +468,14 @@ function App() {
             </div>
 
             <a
-              className="text-bold mt-6 rounded-md bg-black px-4 py-2 text-white lg:hidden"
+              className="mt-6 rounded-md bg-black px-4 py-2 font-bold text-white lg:hidden"
               href="https://veganhacktivists.org/support"
               data-click="redirect-support-us"
             >
               Donate
             </a>
             <a
-              className="text-bold hidden rounded-md bg-black px-4 py-2 text-white lg:block"
+              className="hidden rounded-md bg-black px-4 py-2 font-bold text-white lg:block"
               href="https://veganhacktivists.org/support"
               data-click="redirect-support-us"
             >
