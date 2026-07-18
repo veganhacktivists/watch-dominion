@@ -268,7 +268,13 @@ function App() {
           </Button>
         </div>
         <div className="lg:hidden">
-          <img src="/img/pig-mobile.jpg" alt="" loading="lazy" />
+          <img
+            src="/img/pig-mobile.jpg"
+            alt=""
+            width="750"
+            height="948"
+            loading="lazy"
+          />
         </div>
 
         <div className="-skew-y-6 transform bg-beige px-8 py-20 text-black lg:pt-40 lg:pb-20">
@@ -356,8 +362,8 @@ function App() {
             <img
               src="/img/cow-mobile.jpg"
               alt=""
-              width="512"
-              height="747"
+              width="750"
+              height="948"
               loading="lazy"
             />
           </div>
