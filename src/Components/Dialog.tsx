@@ -26,12 +26,16 @@ export function Dialog({ trigger, ...props }: Props) {
   const embedRef = useRef<HTMLTextAreaElement>(null);
   const [copied, setCopied] = useState(false);
   const prevScrollY = useRef(0);
+  const wasOpen = useRef(props.open);
 
   // Scroll the dialog in view or back.
   useEffect(() => {
+    if (props.open === wasOpen.current) return;
+    wasOpen.current = props.open;
+
     if (props.open) prevScrollY.current = window.scrollY;
 
-    window.requestAnimationFrame(() => {
+    const frame = window.requestAnimationFrame(() => {
       if (props.open) {
         contentRef.current?.scrollIntoView({
           behavior: "smooth",
@@ -41,6 +45,10 @@ export function Dialog({ trigger, ...props }: Props) {
         window.scrollTo({ top: prevScrollY.current, behavior: "smooth" });
       }
     });
+
+    return () => {
+      window.cancelAnimationFrame(frame);
+    };
   }, [props.open]);
 
   // Event listeners
@@ -51,7 +59,7 @@ export function Dialog({ trigger, ...props }: Props) {
       embedRef.current?.focus();
       embedRef.current?.select();
 
-      navigator.clipboard.writeText(embed).then(
+      navigator.clipboard?.writeText(embed).then(
         () => {
           setCopied(true);
           window.setTimeout(() => {

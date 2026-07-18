@@ -39,6 +39,23 @@ describe("Dialog", () => {
     expect(screen.getByRole("button", { name: "Copy" })).toBeTruthy();
   });
 
+  it("does not throw without a Clipboard API", () => {
+    Object.assign(navigator, { clipboard: undefined });
+    const errors: unknown[] = [];
+    const onError = (event: ErrorEvent) => {
+      errors.push(event.error);
+      event.preventDefault();
+    };
+    window.addEventListener("error", onError);
+    render(<Dialog open onOpenChange={() => {}} />);
+
+    fireEvent.click(screen.getByRole("button", { name: "Copy" }));
+    window.removeEventListener("error", onError);
+
+    expect(errors).toEqual([]);
+    expect(screen.getByRole("button", { name: "Copy" })).toBeTruthy();
+  });
+
   it("labels the player and the close control", () => {
     writeText.mockResolvedValue(undefined);
     render(<Dialog open onOpenChange={() => {}} />);
