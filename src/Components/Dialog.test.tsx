@@ -38,4 +38,15 @@ describe("Dialog", () => {
     expect(screen.queryByText("Copied!")).toBeNull();
     expect(screen.getByRole("button", { name: "Copy" })).toBeTruthy();
   });
+
+  it("labels the player and the close control", () => {
+    writeText.mockResolvedValue(undefined);
+    render(<Dialog open onOpenChange={() => {}} />);
+
+    expect(screen.getByRole("button", { name: "Close dialog" })).toBeTruthy();
+    expect(screen.getByRole("textbox")).toHaveProperty(
+      "value",
+      expect.stringContaining('title="Dominion documentary player"'),
+    );
+  });
 });

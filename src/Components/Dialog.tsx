@@ -12,6 +12,7 @@ export function Dialog({ trigger, ...props }: Props) {
   const [lang] = useLang();
   const embed = `<div style="width: 100%; aspect-ratio: 16 / 9;">
   <iframe
+    title="Dominion documentary player"
     width="100%"
     height="100%"
     src="${videos[lang].embedUrl}"
@@ -80,6 +81,7 @@ export function Dialog({ trigger, ...props }: Props) {
           </RadixDialog.Title>
           <RadixDialog.Close
             className="text-gray-dark absolute top-0 right-0 aspect-square py-3 px-4"
+            aria-label="Close dialog"
             data-click="embed-close"
           >
             <svg

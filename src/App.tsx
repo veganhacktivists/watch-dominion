@@ -136,6 +136,7 @@ function App() {
         <div className="mx-auto w-full max-w-5xl px-3">
           <div className="relative aspect-video w-full">
             <iframe
+              title="Dominion documentary player"
               width="100%"
               height="100%"
               src={embedUrl}
