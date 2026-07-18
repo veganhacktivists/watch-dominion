@@ -69,10 +69,16 @@ function App() {
           if ("canShare" in navigator && navigator.canShare(shareData)) {
             try {
               await navigator.share(shareData);
-            } catch {
+              return;
+            } catch (error) {
               // Ignore cancellation errors
+              if (
+                error instanceof DOMException &&
+                error.name === "AbortError"
+              ) {
+                return;
+              }
             }
-            return;
           }
         }
       } catch {
