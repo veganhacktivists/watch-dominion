@@ -112,13 +112,7 @@ function App() {
             </h2>
           </div>
           <div className="hidden lg:block">
-            <img
-              src="/img/pig-desktop.jpg"
-              alt=""
-              width="512"
-              height="447"
-              loading="lazy"
-            />
+            <img src="/img/pig-desktop.jpg" alt="" width="512" height="447" />
           </div>
         </div>
 
@@ -341,7 +335,13 @@ function App() {
               </Button>
             </div>
 
-            <img src="/img/cow-mobile.jpg" alt="" width="512" height="747" />
+            <img
+              src="/img/cow-mobile.jpg"
+              alt=""
+              width="512"
+              height="747"
+              loading="lazy"
+            />
           </div>
         </div>
 
@@ -402,6 +402,7 @@ function App() {
             width="512"
             height="648"
             alt=""
+            loading="lazy"
           />
         </div>
 
