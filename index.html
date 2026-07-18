@@ -3,7 +3,11 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="icon" href="/favicon.svg" />
+    <meta name="theme-color" content="#171716" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="canonical" href="%VITE_APP_URL%/" />
 
     <title>
       Watch the award-winning and life changing documentary, Dominion!
@@ -25,10 +29,12 @@
     <meta property="og:image:width" content="1920" />
     <meta property="og:image:height" content="1080" />
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Watch Dominion" />
     <meta
       name="twitter:description"
       content="Watch the award-winning and life changing documentary, Dominion!"
     />
+    <meta name="twitter:image" content="%VITE_APP_URL%/img/watchdominion.jpg" />
     <meta
       property="og:image:alt"
       content="WatchDominion.org with a pig in the background, looking at the camera"
@@ -38,6 +44,26 @@
     <meta property="video:writer" content="Chris Delforce" />
     <meta property="video:duration" content="7199" />
     <meta property="video:release_date" content="2018" />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Movie",
+        "name": "Dominion",
+        "url": "%VITE_APP_URL%/",
+        "image": "%VITE_APP_URL%/img/watchdominion.jpg",
+        "description": "Dominion uses drones, hidden and handheld cameras to expose the dark underbelly of modern animal agriculture, questioning the morality and validity of humankind's dominion over the animal kingdom.",
+        "director": { "@type": "Person", "name": "Chris Delforce" },
+        "dateCreated": "2018",
+        "duration": "PT1H59M59S",
+        "inLanguage": ["en", "de", "fr", "it", "es"],
+        "sameAs": ["https://dominionmovement.com"],
+        "potentialAction": {
+          "@type": "WatchAction",
+          "target": "%VITE_APP_URL%/"
+        }
+      }
+    </script>
 
     <!-- Scripts -->
     <script
