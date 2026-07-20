@@ -22,7 +22,7 @@ describe("Dialog", () => {
     const copiedText = writeText.mock.calls[0][0];
     expect(copiedText).toContain("<iframe");
     expect(copiedText).toContain(
-      "https://iframe.mediadelivery.net/embed/135301/89232d42-e290-40fc-917d-5669478ee73b",
+      "https://player.mediadelivery.net/embed/135301/89232d42-e290-40fc-917d-5669478ee73b",
     );
 
     expect(await screen.findByText("Copied!")).toBeTruthy();
