@@ -2,7 +2,7 @@ import ArrowRight from "@/Components/ArrowRight";
 import Button from "@/Components/Button";
 import { Dialog } from "@/Components/Dialog";
 import Stat from "@/Components/Stat";
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Option, Select } from "@/Components/Select.tsx";
 import { Lang } from "@/types/lang.ts";
 import {
@@ -32,7 +32,6 @@ export default function AppWrapper() {
 
 // FIXME Optimize how images they are loaded.
 function App() {
-  const embedRef = useRef<HTMLAnchorElement>(null);
   const [visitors, setVisitors] = useState<number | undefined>();
   const [dialogOpen, setDialogOpen] = useState(false);
   const [lang, setLang] = useLang();
@@ -52,25 +51,38 @@ function App() {
     async (event: React.MouseEvent<HTMLAnchorElement>) => {
       event.preventDefault();
 
-      const res = await fetch("/img/watchdominion.jpg");
-      const blob = await res.blob();
-      const file = new File([blob], "watchdominion.jpg", {
-        type: "image/jpeg",
-      });
+      try {
+        const res = await fetch("/img/watchdominion.jpg");
 
-      const shareData = {
-        text: "Watch the award-winning and life changing documentary, Dominion!",
-        url: "https://watchdominion.org",
-        files: [file],
-      };
+        if (res.ok) {
+          const blob = await res.blob();
+          const file = new File([blob], "watchdominion.jpg", {
+            type: "image/jpeg",
+          });
 
-      if ("canShare" in navigator && navigator.canShare(shareData)) {
-        try {
-          await navigator.share(shareData);
-        } catch {
-          // Ignore cancellation errors
+          const shareData = {
+            text: "Watch the award-winning and life changing documentary, Dominion!",
+            url: "https://watchdominion.org",
+            files: [file],
+          };
+
+          if ("canShare" in navigator && navigator.canShare(shareData)) {
+            try {
+              await navigator.share(shareData);
+              return;
+            } catch (error) {
+              // Ignore cancellation errors
+              if (
+                error instanceof DOMException &&
+                error.name === "AbortError"
+              ) {
+                return;
+              }
+            }
+          }
         }
-        return;
+      } catch {
+        // Fall through to sharing on Twitter.
       }
 
       // Fall back to sharing on Twitter.
@@ -79,18 +91,16 @@ function App() {
     [],
   );
 
-  async function loadStats() {
-    const res = await fetch("https://visitors.watchdominion.org");
-
-    if (res.ok) {
-      const data = await res.json();
-      setVisitors(data.visitors);
-    }
-  }
-
   // Fetch stats on page load.
   useEffect(() => {
-    loadStats();
+    fetch("https://visitors.watchdominion.org")
+      .then((res) => (res.ok ? res.json() : null))
+      .then((data) => {
+        if (typeof data?.visitors === "number") {
+          setVisitors(data.visitors);
+        }
+      })
+      .catch(() => {});
   }, []);
 
   return (
@@ -108,19 +118,25 @@ function App() {
             </h2>
           </div>
           <div className="hidden lg:block">
-            <img
-              src="/img/pig-desktop.jpg"
-              alt=""
-              width="512"
-              height="447"
-              loading="lazy"
-            />
+            <picture>
+              <source
+                media="(min-width: 1024px)"
+                srcSet="/img/pig-desktop.jpg"
+              />
+              <img
+                src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+                alt=""
+                width="512"
+                height="447"
+              />
+            </picture>
           </div>
         </div>
 
         <div className="mx-auto w-full max-w-5xl px-3">
           <div className="relative aspect-video w-full">
             <iframe
+              title="Dominion documentary player"
               width="100%"
               height="100%"
               src={embedUrl}
@@ -170,7 +186,6 @@ function App() {
                     className="flex appearance-none items-center space-x-2 text-base"
                     title="Learn how to embed Dominion on your own site"
                     onClick={handleEmbedClick}
-                    ref={embedRef}
                     data-click="embed"
                   >
                     <svg
@@ -196,7 +211,6 @@ function App() {
                 rel="noopener noreferrer"
                 className="flex appearance-none items-center space-x-2 text-base"
                 title="Download the movie from the Farm Transparency Project"
-                ref={embedRef}
                 data-click="download"
               >
                 <svg
@@ -254,7 +268,13 @@ function App() {
           </Button>
         </div>
         <div className="lg:hidden">
-          <img src="/img/pig-mobile.jpg" alt="" loading="lazy" />
+          <img
+            src="/img/pig-mobile.jpg"
+            alt=""
+            width="750"
+            height="948"
+            loading="lazy"
+          />
         </div>
 
         <div className="-skew-y-6 transform bg-beige px-8 py-20 text-black lg:pt-40 lg:pb-20">
@@ -339,7 +359,13 @@ function App() {
               </Button>
             </div>
 
-            <img src="/img/cow-mobile.jpg" alt="" width="512" height="747" />
+            <img
+              src="/img/cow-mobile.jpg"
+              alt=""
+              width="750"
+              height="948"
+              loading="lazy"
+            />
           </div>
         </div>
 
@@ -400,6 +426,7 @@ function App() {
             width="512"
             height="648"
             alt=""
+            loading="lazy"
           />
         </div>
 
@@ -441,14 +468,14 @@ function App() {
             </div>
 
             <a
-              className="text-bold mt-6 rounded-md bg-black px-4 py-2 text-white lg:hidden"
+              className="mt-6 rounded-md bg-black px-4 py-2 font-bold text-white lg:hidden"
               href="https://veganhacktivists.org/support"
               data-click="redirect-support-us"
             >
               Donate
             </a>
             <a
-              className="text-bold hidden rounded-md bg-black px-4 py-2 text-white lg:block"
+              className="hidden rounded-md bg-black px-4 py-2 font-bold text-white lg:block"
               href="https://veganhacktivists.org/support"
               data-click="redirect-support-us"
             >

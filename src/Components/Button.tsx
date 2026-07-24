@@ -25,27 +25,27 @@ type Props = ButtonAsButton | ButtonAsExternal | ButtonAsLink;
 
 export default function Button(props: Props) {
   const buttonClassName = `flex items-center rounded-lg h-11 px-8 font-bold ${
-    props.variant === "primary"
-      ? "bg-accent text-dark"
-      : "border-2 border-accent"
+    props.variant === "secondary"
+      ? "border-2 border-accent"
+      : "bg-accent text-dark"
   } ${props.className || ""}`;
 
   if (props.as === "externalLink") {
-    const { className, as, ...rest } = props;
+    const { className, as, variant, ...rest } = props;
     return (
       <a className={buttonClassName} {...rest}>
         {props.children}
       </a>
     );
   } else if (props.as === "link") {
-    const { className, as, ...rest } = props;
+    const { className, as, variant, ...rest } = props;
     return (
       <a className={buttonClassName} {...rest}>
         {props.children}
       </a>
     );
   } else {
-    const { className, as, ...rest } = props;
+    const { className, as, variant, ...rest } = props;
     return (
       <button className={buttonClassName} {...rest}>
         {props.children}
@@ -53,7 +53,3 @@ export default function Button(props: Props) {
     );
   }
 }
-
-Button.defaultProps = {
-  variant: "primary",
-};

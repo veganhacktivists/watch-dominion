@@ -1,3 +1,4 @@
+/// <reference types="vitest/config" />
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import { resolve } from "node:path";
@@ -9,5 +10,9 @@ export default defineConfig({
     alias: {
       "@": resolve(__dirname, "./src"),
     },
+  },
+  test: {
+    environment: "jsdom",
+    globals: true,
   },
 });

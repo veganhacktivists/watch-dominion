@@ -12,6 +12,7 @@ export function Dialog({ trigger, ...props }: Props) {
   const [lang] = useLang();
   const embed = `<div style="width: 100%; aspect-ratio: 16 / 9;">
   <iframe
+    title="Dominion documentary player"
     width="100%"
     height="100%"
     src="${videos[lang].embedUrl}"
@@ -24,41 +25,52 @@ export function Dialog({ trigger, ...props }: Props) {
   const contentRef = useRef<HTMLDivElement>(null);
   const embedRef = useRef<HTMLTextAreaElement>(null);
   const [copied, setCopied] = useState(false);
-  const [prevScrollY, setPrevScrollY] = useState(0);
+  const prevScrollY = useRef(0);
+  const wasOpen = useRef(props.open);
 
   // Scroll the dialog in view or back.
   useEffect(() => {
-    if (props.open) setPrevScrollY(window.scrollY);
+    if (props.open === wasOpen.current) return;
+    wasOpen.current = props.open;
 
-    window.requestAnimationFrame(() => {
+    if (props.open) prevScrollY.current = window.scrollY;
+
+    const frame = window.requestAnimationFrame(() => {
       if (props.open) {
         contentRef.current?.scrollIntoView({
           behavior: "smooth",
           block: "center",
         });
       } else {
-        window.scrollTo({ top: prevScrollY, behavior: "smooth" });
+        window.scrollTo({ top: prevScrollY.current, behavior: "smooth" });
       }
     });
+
+    return () => {
+      window.cancelAnimationFrame(frame);
+    };
   }, [props.open]);
 
   // Event listeners
-  const copy = useCallback((event: React.FormEvent) => {
-    event.preventDefault();
+  const copy = useCallback(
+    (event: React.FormEvent) => {
+      event.preventDefault();
 
-    embedRef.current?.focus();
-    embedRef.current?.select();
-    const selection = window.getSelection();
+      embedRef.current?.focus();
+      embedRef.current?.select();
 
-    if (selection) {
-      navigator.clipboard.writeText(selection.toString());
-    }
-
-    setCopied(true);
-    window.setTimeout(() => {
-      setCopied(false);
-    }, 3000);
-  }, []);
+      navigator.clipboard?.writeText(embed).then(
+        () => {
+          setCopied(true);
+          window.setTimeout(() => {
+            setCopied(false);
+          }, 3000);
+        },
+        () => {},
+      );
+    },
+    [embed],
+  );
 
   return (
     <RadixDialog.Root {...props}>
@@ -77,6 +89,7 @@ export function Dialog({ trigger, ...props }: Props) {
           </RadixDialog.Title>
           <RadixDialog.Close
             className="text-gray-dark absolute top-0 right-0 aspect-square py-3 px-4"
+            aria-label="Close dialog"
             data-click="embed-close"
           >
             <svg

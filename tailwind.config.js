@@ -17,7 +17,7 @@ export default {
     extend: {
       animation: {
         dialog: "dialog 300ms ease-out",
-        fadein: "dialog 300ms ease-out",
+        fadein: "fadein 300ms ease-out",
       },
       fontFamily: {
         sans: ["Rubik"],
