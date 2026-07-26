@@ -75,7 +75,7 @@ export function Dialog({ trigger, ...props }: Props) {
   return (
     <RadixDialog.Root {...props}>
       <RadixDialog.Trigger asChild>{trigger}</RadixDialog.Trigger>
-      <RadixDialog.Overlay className="fixed inset-0 !m-0 bg-dark bg-opacity-20 motion-safe:animate-fadein" />
+      <RadixDialog.Overlay className="fixed inset-0 !m-0 bg-dark/20 motion-safe:animate-fadein" />
       <RadixDialog.Content
         className={[
           "absolute right-0 top-9 z-20 !m-0 rounded-lg bg-white text-dark",
