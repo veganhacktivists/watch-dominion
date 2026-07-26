@@ -80,7 +80,7 @@ export const Item = React.forwardRef(
   ) => (
     <RadixSelect.Item
       className={cx(
-        "cursor-default rounded-md py-1 px-2 text-black outline-none focus:bg-accent",
+        "cursor-default rounded-md py-1 px-2 text-black outline-hidden focus:bg-accent",
         className,
       )}
       {...props}
