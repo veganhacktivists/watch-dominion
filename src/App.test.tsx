@@ -47,6 +47,20 @@ describe("visitor stats", () => {
   });
 });
 
+describe("page metadata", () => {
+  beforeEach(() => {
+    fetchMock.mockResolvedValue(statsResponse({ visitors: 1 }));
+  });
+
+  it("names the film in the heading", () => {
+    render(<App />);
+
+    expect(screen.getByRole("heading", { level: 1 }).textContent).toContain(
+      "Dominion",
+    );
+  });
+});
+
 describe("share", () => {
   const clickShare = () =>
     fireEvent.click(screen.getByText("Tap here to share!"));

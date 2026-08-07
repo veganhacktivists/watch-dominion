@@ -108,14 +108,16 @@ function App() {
       <div className="relative flex flex-col">
         <div className="mx-auto grid w-full max-w-5xl grid-cols-1 items-center py-12 lg:grid-cols-2">
           <div className="flex flex-col space-y-4 p-16">
-            <h1 className="flex flex-col text-center text-7xl font-black uppercase text-beige lg:text-8xl">
-              <span className="text-accent">Watch</span>
-              <span>this</span>
-              <span>movie</span>
+            <h1 className="flex flex-col space-y-4">
+              <span className="flex flex-col text-center text-7xl font-black uppercase text-beige lg:text-8xl">
+                <span className="text-accent">Watch</span> <span>this</span>{" "}
+                <span>movie</span>
+              </span>{" "}
+              <span className="flex flex-col space-y-2 text-center font-rock text-xl uppercase text-accent lg:text-3xl">
+                <span>Dominion</span>{" "}
+                <span className="whitespace-nowrap">It's life changing !</span>
+              </span>
             </h1>
-            <h2 className="whitespace-nowrap text-center font-rock text-xl uppercase text-accent lg:text-3xl">
-              It's life changing !
-            </h2>
           </div>
           <div className="hidden lg:block">
             <picture>
