@@ -59,6 +59,12 @@ describe("page metadata", () => {
       "Dominion",
     );
   });
+
+  it("marks the document language", () => {
+    render(<App />);
+
+    expect(document.documentElement.lang).toBe("en");
+  });
 });
 
 describe("share", () => {

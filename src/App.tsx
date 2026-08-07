@@ -91,6 +91,10 @@ function App() {
     [],
   );
 
+  useEffect(() => {
+    document.documentElement.lang = lang;
+  }, [lang]);
+
   // Fetch stats on page load.
   useEffect(() => {
     fetch("https://visitors.watchdominion.org")
