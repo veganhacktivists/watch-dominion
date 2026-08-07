@@ -9,9 +9,7 @@
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="canonical" href="%VITE_APP_URL%/" />
 
-    <title>
-      Watch the award-winning and life changing documentary, Dominion!
-    </title>
+    <title>Watch Dominion (2018) — Full Documentary, Free</title>
     <meta
       name="description"
       content="Dominion uses drones, hidden and handheld cameras to expose the dark underbelly of modern animal agriculture, questioning the morality and validity of humankind's dominion over the animal kingdom."
@@ -52,6 +50,8 @@
         "name": "Dominion",
         "url": "%VITE_APP_URL%/",
         "image": "%VITE_APP_URL%/img/watchdominion.jpg",
+        "thumbnailUrl": "%VITE_APP_URL%/img/watchdominion.jpg",
+        "genre": "Documentary",
         "description": "Dominion uses drones, hidden and handheld cameras to expose the dark underbelly of modern animal agriculture, questioning the morality and validity of humankind's dominion over the animal kingdom.",
         "director": { "@type": "Person", "name": "Chris Delforce" },
         "dateCreated": "2018",
@@ -65,6 +65,27 @@
       }
     </script>
 
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "VideoObject",
+        "name": "Dominion",
+        "description": "Dominion uses drones, hidden and handheld cameras to expose the dark underbelly of modern animal agriculture, questioning the morality and validity of humankind's dominion over the animal kingdom.",
+        "thumbnailUrl": "%VITE_APP_URL%/img/watchdominion.jpg",
+        "uploadDate": "2018-10-09",
+        "duration": "PT1H59M59S",
+        "inLanguage": "en",
+        "embedUrl": "https://player.mediadelivery.net/embed/135301/89232d42-e290-40fc-917d-5669478ee73b",
+        "sameAs": [
+          "https://www.youtube.com/watch?v=LQRAfJyEsko",
+          "https://www.youtube.com/watch?v=V7DrljVAaYk",
+          "https://www.youtube.com/watch?v=4yLbg1DvgBU",
+          "https://www.youtube.com/watch?v=sGov7OJDDO0",
+          "https://www.youtube.com/watch?v=QlaiMB3dobA"
+        ]
+      }
+    </script>
+
     <!-- Scripts -->
     <script
       defer
@@ -74,6 +95,26 @@
   </head>
 
   <body class="bg-dark text-white">
+    <noscript>
+      <div class="mx-auto max-w-2xl space-y-4 p-8">
+        <h1 class="text-3xl font-black uppercase text-accent">
+          Watch Dominion
+        </h1>
+        <p>
+          Dominion uses drones, hidden and handheld cameras to expose the dark
+          underbelly of modern animal agriculture, questioning the morality and
+          validity of humankind's dominion over the animal kingdom.
+        </p>
+        <p>
+          This site needs JavaScript to play the film. You can also
+          <a
+            class="font-semibold underline"
+            href="https://www.youtube.com/watch?v=LQRAfJyEsko"
+            >watch Dominion on YouTube</a
+          >.
+        </p>
+      </div>
+    </noscript>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
