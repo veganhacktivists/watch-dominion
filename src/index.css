@@ -1,4 +1,42 @@
-@import "tailwindcss/base";
-@import "tailwindcss/components";
-@import "tailwindcss/utilities";
+@import "tailwindcss";
 @import "./fonts.css";
+
+@plugin "@tailwindcss/forms";
+@plugin "@tailwindcss/typography";
+
+@theme {
+  --color-*: initial;
+  --color-accent: #f4c41a;
+  --color-beige: #efe9dc;
+  --color-black: #000;
+  --color-dark: #171716;
+  --color-gray: #57524e;
+  --color-white: #f6f5f2;
+
+  --font-*: initial;
+  --font-rock: "Rock Salt", cursive;
+  --font-rubik: "Rubik", sans-serif;
+  --font-sans: Rubik;
+
+  --animate-dialog: dialog 300ms ease-out;
+  --animate-fadein: fadein 300ms ease-out;
+
+  @keyframes dialog {
+    0% {
+      transform: translateY(3rem);
+      opacity: 0;
+    }
+    100% {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+  @keyframes fadein {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+}
