@@ -75,7 +75,7 @@ export function Dialog({ trigger, ...props }: Props) {
   return (
     <RadixDialog.Root {...props}>
       <RadixDialog.Trigger asChild>{trigger}</RadixDialog.Trigger>
-      <RadixDialog.Overlay className="fixed inset-0 !m-0 bg-dark bg-opacity-20 motion-safe:animate-fadein" />
+      <RadixDialog.Overlay className="fixed inset-0 !m-0 bg-dark/20 motion-safe:animate-fadein" />
       <RadixDialog.Content
         className={[
           "absolute right-0 top-9 z-20 !m-0 rounded-lg bg-white text-dark",
@@ -83,7 +83,7 @@ export function Dialog({ trigger, ...props }: Props) {
         ].join(" ")}
         ref={contentRef}
       >
-        <div className="flex border-b border-dark border-opacity-20 px-5 py-4 font-bold">
+        <div className="flex border-b border-dark/20 px-5 py-4 font-bold">
           <RadixDialog.Title className="flex-1">
             Embed, share, make a change!
           </RadixDialog.Title>
