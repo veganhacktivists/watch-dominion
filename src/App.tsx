@@ -469,16 +469,26 @@ function App() {
         </div>
 
         <div className="mx-auto flex w-full max-w-5xl flex-col items-center p-8 text-center lg:flex-row lg:text-left">
-          <span className="flex-1">
-            A project by{" "}
+          <div className="flex-1">
             <a
-              className="font-bold"
+              className="inline-flex items-center gap-4"
               href="https://veganhacktivists.org"
               data-click="redirect-vegan-hacktivists"
             >
-              Vegan Hacktivists
+              <img
+                className="h-12 w-12"
+                src="/img/vh-logo.webp"
+                width="128"
+                height="128"
+                alt=""
+                loading="lazy"
+              />
+              <span>
+                A project by{" "}
+                <span className="font-bold">Vegan Hacktivists</span>
+              </span>
             </a>
-          </span>
+          </div>
           <div className="mt-6 flex space-x-6 lg:mt-0">
             <a
               href="https://www.instagram.com/veganhacktivists"
