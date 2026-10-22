@@ -346,7 +346,7 @@ function App() {
                 as="externalLink"
                 variant="secondary"
                 className="group mt-6"
-                href="https://gamechangersmovie.com"
+                href="https://www.primevideo.com/detail/0KRH0IMCTEEYKTRB2PR28020IR"
                 data-click="redirect-game-changers"
               >
                 <span className="mr-6">Game Changers</span>
