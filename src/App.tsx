@@ -438,28 +438,6 @@ function App() {
 
         <div className="bg-accent">
           <div className="mx-auto flex w-full max-w-5xl flex-col items-center px-8 py-10 text-center lg:flex-row lg:space-x-7 lg:text-left">
-            <svg
-              className="w-20"
-              version="1.1"
-              viewBox="0 0 569 546"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <g>
-                <circle
-                  cx="362.589996"
-                  cy="204.589996"
-                  data-fill="1"
-                  r="204.589996"
-                />
-                <rect
-                  data-fill="1"
-                  height="545.799988"
-                  width="100"
-                  x="0"
-                  y="0"
-                />
-              </g>
-            </svg>
             <div className="flex-1 lg:flex lg:flex-col">
               <h2 className="mt-6 font-rubik text-2xl font-bold text-dark lg:hidden">
                 Support our work!
@@ -491,16 +469,26 @@ function App() {
         </div>
 
         <div className="mx-auto flex w-full max-w-5xl flex-col items-center p-8 text-center lg:flex-row lg:text-left">
-          <span className="flex-1">
-            A project by the{" "}
+          <div className="flex-1">
             <a
-              className="font-bold"
+              className="inline-flex items-center gap-4"
               href="https://veganhacktivists.org"
               data-click="redirect-vegan-hacktivists"
             >
-              Vegan Hacktivists
+              <img
+                className="h-12 w-12"
+                src="/img/vh-logo.webp"
+                width="128"
+                height="128"
+                alt=""
+                loading="lazy"
+              />
+              <span>
+                A project by{" "}
+                <span className="font-bold">Vegan Hacktivists</span>
+              </span>
             </a>
-          </span>
+          </div>
           <div className="mt-6 flex space-x-6 lg:mt-0">
             <a
               href="https://www.instagram.com/veganhacktivists"
