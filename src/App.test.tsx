@@ -88,3 +88,29 @@ describe("share", () => {
     await waitFor(() => expect(share).toHaveBeenCalledTimes(1));
   });
 });
+
+describe("individuen link", () => {
+  const renderWithLanguage = async (language: string) => {
+    vi.resetModules();
+    Object.defineProperty(navigator, "language", {
+      value: language,
+      configurable: true,
+    });
+    fetchMock.mockResolvedValue(statsResponse({ visitors: 1 }));
+    const { default: LocalizedApp } = await import("./App");
+    render(<LocalizedApp />);
+  };
+
+  it("shows for German browsers", async () => {
+    await renderWithLanguage("de-AT");
+
+    const link = screen.getByRole("link", { name: "Individuen" });
+    expect(link.getAttribute("href")).toBe("https://www.individuen.org");
+  });
+
+  it("stays hidden for other languages", async () => {
+    await renderWithLanguage("en-GB");
+
+    expect(screen.queryByRole("link", { name: "Individuen" })).toBeNull();
+  });
+});

@@ -357,6 +357,19 @@ function App() {
                 <span className="mr-6">What The Health</span>
                 <ArrowRight />
               </Button>
+
+              {lang === "de" && (
+                <Button
+                  as="externalLink"
+                  variant="secondary"
+                  className="group mt-6"
+                  href="https://www.individuen.org"
+                  data-click="redirect-individuen"
+                >
+                  <span className="mr-6">Individuen</span>
+                  <ArrowRight />
+                </Button>
+              )}
             </div>
 
             <img
